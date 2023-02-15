@@ -48,23 +48,11 @@
         "named": true
       },
       {
-        "type": "static_item",
-        "named": true
-      },
-      {
         "type": "struct_item",
         "named": true
       },
       {
         "type": "trait_item",
-        "named": true
-      },
-      {
-        "type": "type_item",
-        "named": true
-      },
-      {
-        "type": "union_item",
         "named": true
       },
       {
@@ -87,14 +75,6 @@
       },
       {
         "type": "assignment_expression",
-        "named": true
-      },
-      {
-        "type": "async_block",
-        "named": true
-      },
-      {
-        "type": "await_expression",
         "named": true
       },
       {
@@ -154,10 +134,6 @@
         "named": true
       },
       {
-        "type": "loop_expression",
-        "named": true
-      },
-      {
         "type": "match_expression",
         "named": true
       },
@@ -211,10 +187,6 @@
       },
       {
         "type": "unit_expression",
-        "named": true
-      },
-      {
-        "type": "unsafe_block",
         "named": true
       },
       {
@@ -593,21 +565,6 @@
     }
   },
   {
-    "type": "async_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "block",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "attribute",
     "named": true,
     "fields": {
@@ -669,21 +626,6 @@
       "types": [
         {
           "type": "attribute",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "await_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "_expression",
           "named": true
         }
       ]
@@ -847,10 +789,6 @@
         {
           "type": "_type",
           "named": true
-        },
-        {
-          "type": "lifetime",
-          "named": true
         }
       ]
     }
@@ -924,14 +862,6 @@
             "named": true
           },
           {
-            "type": "async_block",
-            "named": true
-          },
-          {
-            "type": "await_expression",
-            "named": true
-          },
-          {
             "type": "binary_expression",
             "named": true
           },
@@ -988,10 +918,6 @@
             "named": true
           },
           {
-            "type": "loop_expression",
-            "named": true
-          },
-          {
             "type": "match_expression",
             "named": true
           },
@@ -1041,10 +967,6 @@
           },
           {
             "type": "unit_expression",
-            "named": true
-          },
-          {
-            "type": "unsafe_block",
             "named": true
           },
           {
@@ -1307,10 +1229,6 @@
         "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "lifetime",
-            "named": true
-          },
           {
             "type": "type_identifier",
             "named": true
@@ -1807,21 +1725,6 @@
     }
   },
   {
-    "type": "for_lifetimes",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "lifetime",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "fragment_specifier",
     "named": true,
     "fields": {}
@@ -2017,13 +1920,9 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
-        {
-          "type": "for_lifetimes",
-          "named": true
-        },
         {
           "type": "function_modifiers",
           "named": true
@@ -2389,47 +2288,6 @@
       "types": [
         {
           "type": "mutable_specifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "lifetime",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "loop_expression",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "block",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "loop_label",
           "named": true
         }
       ]
@@ -2938,13 +2796,9 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
-        {
-          "type": "lifetime",
-          "named": true
-        },
         {
           "type": "mutable_specifier",
           "named": true
@@ -3138,10 +2992,6 @@
       "required": true,
       "types": [
         {
-          "type": "lifetime",
-          "named": true
-        },
-        {
           "type": "mutable_specifier",
           "named": true
         },
@@ -3200,56 +3050,6 @@
         },
         {
           "type": "expression_statement",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "static_item",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "_type",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "_expression",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "mutable_specifier",
-          "named": true
-        },
-        {
-          "type": "visibility_modifier",
           "named": true
         }
       ]
@@ -3631,10 +3431,6 @@
           "named": true
         },
         {
-          "type": "lifetime",
-          "named": true
-        },
-        {
           "type": "removed_trait_bound",
           "named": true
         }
@@ -3816,10 +3612,6 @@
           "named": true
         },
         {
-          "type": "lifetime",
-          "named": true
-        },
-        {
           "type": "type_binding",
           "named": true
         }
@@ -3889,52 +3681,6 @@
     }
   },
   {
-    "type": "type_item",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "type_identifier",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "_type",
-            "named": true
-          }
-        ]
-      },
-      "type_parameters": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "type_parameters",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "visibility_modifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "type_parameters",
     "named": true,
     "fields": {},
@@ -3948,10 +3694,6 @@
         },
         {
           "type": "constrained_type_parameter",
-          "named": true
-        },
-        {
-          "type": "lifetime",
           "named": true
         },
         {
@@ -3985,56 +3727,6 @@
     }
   },
   {
-    "type": "union_item",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "field_declaration_list",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "type_identifier",
-            "named": true
-          }
-        ]
-      },
-      "type_parameters": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "type_parameters",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "visibility_modifier",
-          "named": true
-        },
-        {
-          "type": "where_clause",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "unit_expression",
     "named": true,
     "fields": {}
@@ -4043,21 +3735,6 @@
     "type": "unit_type",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "unsafe_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "block",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "use_as_clause",
@@ -4312,10 +3989,6 @@
           },
           {
             "type": "higher_ranked_trait_bound",
-            "named": true
-          },
-          {
-            "type": "lifetime",
             "named": true
           },
           {
@@ -4602,14 +4275,6 @@
     "named": false
   },
   {
-    "type": "async",
-    "named": false
-  },
-  {
-    "type": "await",
-    "named": false
-  },
-  {
     "type": "block",
     "named": false
   },
@@ -4714,19 +4379,11 @@
     "named": false
   },
   {
-    "type": "lifetime",
-    "named": false
-  },
-  {
     "type": "line_comment",
     "named": true
   },
   {
     "type": "literal",
-    "named": false
-  },
-  {
-    "type": "loop",
     "named": false
   },
   {
@@ -4786,10 +4443,6 @@
     "named": true
   },
   {
-    "type": "static",
-    "named": false
-  },
-  {
     "type": "stmt",
     "named": false
   },
@@ -4824,14 +4477,6 @@
   {
     "type": "type_identifier",
     "named": true
-  },
-  {
-    "type": "union",
-    "named": false
-  },
-  {
-    "type": "unsafe",
-    "named": false
   },
   {
     "type": "use",

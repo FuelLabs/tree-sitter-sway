@@ -39,10 +39,6 @@ fn add(x: i32, y: i32) -> i32 {
     return x + y;
 }
 
-fn takes_slice(slice: &str) {
-    println!("Got: {}", slice);
-}
-
 fn foo() -> [u32; 2] {
     return [1, 2];
 }
@@ -84,20 +80,6 @@ fn accumulate(self) -> Machine<{State::Accumulate}> {}
           (binary_expression
             left: (identifier)
             right: (identifier))))))
-  (function_item
-    name: (identifier)
-    parameters: (parameters
-      (parameter
-        pattern: (identifier)
-        type: (reference_type
-          type: (primitive_type))))
-    body: (block
-      (expression_statement
-        (macro_invocation
-          macro: (identifier)
-          (token_tree
-            (string_literal)
-            (identifier))))))
   (function_item
     name: (identifier)
     parameters: (parameters)
@@ -363,7 +345,7 @@ Let-else Statements
 let Foo::Bar {
     texts,
     values,
-} = foo().bar().await? else {
+} = foo().bar()? else {
     return Err(index)
 };
 
@@ -388,14 +370,13 @@ let Some(x) = y else {
       (field_pattern
         name: (shorthand_field_identifier)))
     value: (try_expression
-      (await_expression
-        (call_expression
-          function: (field_expression
-            value: (call_expression
-              function: (identifier)
-              arguments: (arguments))
-            field: (field_identifier))
-          arguments: (arguments))))
+      (call_expression
+        function: (field_expression
+          value: (call_expression
+            function: (identifier)
+            arguments: (arguments))
+          field: (field_identifier))
+        arguments: (arguments)))
     alternative: (block
       (return_expression
         (call_expression
@@ -521,54 +502,10 @@ struct Inches(i32);
       (primitive_type))))
 
 ================================================================================
-Unions
-================================================================================
-
-pub union in6_addr__bindgen_ty_1 {
-    pub __u6_addr8: [__uint8_t; 16usize],
-    pub __u6_addr16: [__uint16_t; 8usize],
-    pub __u6_addr32: [__uint32_t; 4usize],
-    _bindgen_union_align: [u32; 4usize],
-}
-
---------------------------------------------------------------------------------
-
-(source_file
-  (union_item
-    (visibility_modifier)
-    (type_identifier)
-    (field_declaration_list
-      (field_declaration
-        (visibility_modifier)
-        (field_identifier)
-        (array_type
-          (type_identifier)
-          (integer_literal)))
-      (field_declaration
-        (visibility_modifier)
-        (field_identifier)
-        (array_type
-          (type_identifier)
-          (integer_literal)))
-      (field_declaration
-        (visibility_modifier)
-        (field_identifier)
-        (array_type
-          (type_identifier)
-          (integer_literal)))
-      (field_declaration
-        (field_identifier)
-        (array_type
-          (primitive_type)
-          (integer_literal))))))
-
-================================================================================
 Generic structs
 ================================================================================
 
 struct A<B> {}
-struct C<'a, 'b> {}
-struct C<'a,> {}
 struct D<const SIZE: usize> {}
 
 --------------------------------------------------------------------------------
@@ -578,20 +515,6 @@ struct D<const SIZE: usize> {}
     name: (type_identifier)
     type_parameters: (type_parameters
       (type_identifier))
-    body: (field_declaration_list))
-  (struct_item
-    name: (type_identifier)
-    type_parameters: (type_parameters
-      (lifetime
-        (identifier))
-      (lifetime
-        (identifier)))
-    body: (field_declaration_list))
-  (struct_item
-    name: (type_identifier)
-    type_parameters: (type_parameters
-      (lifetime
-        (identifier)))
     body: (field_declaration_list))
   (struct_item
     name: (type_identifier)
@@ -857,64 +780,6 @@ trait Foo {
         (primitive_type)))))
 
 ================================================================================
-Static items
-================================================================================
-
-static N: i32 = 5;
-static mut __progname: *mut ::c_char;
-
---------------------------------------------------------------------------------
-
-(source_file
-  (static_item
-    (identifier)
-    (primitive_type)
-    (integer_literal))
-  (static_item
-    (mutable_specifier)
-    (identifier)
-    (pointer_type
-      (mutable_specifier)
-      (scoped_type_identifier
-        (type_identifier)))))
-
-================================================================================
-Static 'ref' items using lazy_static
-================================================================================
-
-static ref ONE: usize = 0;
-
---------------------------------------------------------------------------------
-
-(source_file
-  (static_item
-    (identifier)
-    (primitive_type)
-    (integer_literal)))
-
-================================================================================
-Type aliases
-================================================================================
-
-type Inch = u64;
-type Name<T> = Vec<T>;
-
---------------------------------------------------------------------------------
-
-(source_file
-  (type_item
-    (type_identifier)
-    (primitive_type))
-  (type_item
-    (type_identifier)
-    (type_parameters
-      (type_identifier))
-    (generic_type
-      (type_identifier)
-      (type_arguments
-        (type_identifier)))))
-
-================================================================================
 Empty statements
 ================================================================================
 
@@ -945,7 +810,7 @@ struct Baz;
 struct Foo;
 
 #[cfg(target_os = "macos")]
-mod macos_only {}
+dep macos_only {}
 
 #![allow(clippy::useless_transmute)]
 
@@ -1002,7 +867,7 @@ mod macos_only {}
 Inner attributes
 ================================================================================
 
-mod macos_only {
+dep macos_only {
   #![cfg(target_os = "macos")]
 }
 
@@ -1023,26 +888,12 @@ mod macos_only {
 Key-Value Attribute Expressions
 ================================================================================
 
-#[doc = include_str!("foo-doc.md")]
-fn foo() {}
-
 #[namespace = foo::bar]
 fn baz() {}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (attribute_item
-    (attribute
-      (identifier)
-      (macro_invocation
-        (identifier)
-        (token_tree
-          (string_literal)))))
-  (function_item
-    (identifier)
-    (parameters)
-    (block))
   (attribute_item
     (attribute
       (identifier)
@@ -1053,113 +904,6 @@ fn baz() {}
     (identifier)
     (parameters)
     (block)))
-
-================================================================================
-Attribute macros
-================================================================================
-
-foo(#[attr(=> arbitrary tokens <=)] x, y);
-
-foo(#[bar(some tokens are special in other contexts: $/';()*()+.)] x);
-
---------------------------------------------------------------------------------
-
-(source_file
-  (expression_statement
-    (call_expression
-      function: (identifier)
-      arguments: (arguments
-        (attribute_item
-          (attribute
-            (identifier)
-            arguments: (token_tree
-              (identifier)
-              (identifier))))
-        (identifier)
-        (identifier))))
-  (expression_statement
-    (call_expression
-      function: (identifier)
-      arguments: (arguments
-        (attribute_item
-          (attribute
-            (identifier)
-            arguments: (token_tree
-              (identifier)
-              (identifier)
-              (identifier)
-              (identifier)
-              (identifier)
-              (identifier)
-              (identifier)
-              (token_tree)
-              (token_tree))))
-        (identifier)))))
-
-================================================================================
-Derive macro helper attributes
-================================================================================
-
-// Example from https://github.com/dtolnay/thiserror/blob/21c26903e29cb92ba1a7ff11e82ae2001646b60d/README.md
-
-use thiserror::Error;
-
-#[derive(Error, Debug)]
-pub enum Error {
-    #[error("first letter must be lowercase but was {:?}", first_char(.0))]
-    WrongCase(String),
-    #[error("invalid index {idx}, expected at least {} and at most {}", .limits.lo, .limits.hi)]
-    OutOfBounds { idx: usize, limits: Limits },
-}
-
---------------------------------------------------------------------------------
-
-(source_file
-  (line_comment)
-  (use_declaration
-    (scoped_identifier
-      (identifier)
-      (identifier)))
-  (attribute_item
-    (attribute
-      (identifier)
-      (token_tree
-        (identifier)
-        (identifier))))
-  (enum_item
-    (visibility_modifier)
-    (type_identifier)
-    (enum_variant_list
-      (attribute_item
-        (attribute
-          (identifier)
-          (token_tree
-            (string_literal)
-            (identifier)
-            (token_tree
-              (integer_literal)))))
-      (enum_variant
-        (identifier)
-        (ordered_field_declaration_list
-          (type_identifier)))
-      (attribute_item
-        (attribute
-          (identifier)
-          (token_tree
-            (string_literal)
-            (identifier)
-            (identifier)
-            (identifier)
-            (identifier))))
-      (enum_variant
-        (identifier)
-        (field_declaration_list
-          (field_declaration
-            (field_identifier)
-            (primitive_type))
-          (field_declaration
-            (field_identifier)
-            (type_identifier)))))))
 
 ================================================================================
 Attributes and Expressions
@@ -1221,7 +965,6 @@ impl Person {
   fn walk(self) {}
   fn walk_mut(mut self) {}
   fn talk(& self) {}
-  fn talk_mut(&'a mut self) {}
 }
 
 impl Machine<{State::Init}> {}
@@ -1254,15 +997,6 @@ impl Machine<{State::Init}> {}
         parameters: (parameters
           (self_parameter
             (self)))
-        body: (block))
-      (function_item
-        name: (identifier)
-        parameters: (parameters
-          (self_parameter
-            (lifetime
-              (identifier))
-            (mutable_specifier)
-            (self)))
         body: (block))))
   (impl_item
     type: (generic_type
@@ -1278,9 +1012,6 @@ impl Machine<{State::Init}> {}
 Trait impls
 ================================================================================
 
-impl<'a> iter::Iterator for Self::Iter<'a> {
-}
-
 impl ConvertTo<i64> for i32 {
     fn convert(&self) -> i64 { *self as i64 }
 }
@@ -1288,21 +1019,6 @@ impl ConvertTo<i64> for i32 {
 --------------------------------------------------------------------------------
 
 (source_file
-  (impl_item
-    type_parameters: (type_parameters
-      (lifetime
-        (identifier)))
-    trait: (scoped_type_identifier
-      path: (identifier)
-      name: (type_identifier))
-    type: (generic_type
-      type: (scoped_type_identifier
-        path: (identifier)
-        name: (type_identifier))
-      type_arguments: (type_arguments
-        (lifetime
-          (identifier))))
-    body: (declaration_list))
   (impl_item
     trait: (generic_type
       type: (type_identifier)
@@ -1321,20 +1037,6 @@ impl ConvertTo<i64> for i32 {
             value: (unary_expression
               (self))
             type: (primitive_type)))))))
-
-================================================================================
-Unsafe impls
-================================================================================
-
-unsafe impl Foo {
-}
-
---------------------------------------------------------------------------------
-
-(source_file
-  (impl_item
-    (type_identifier)
-    (declaration_list)))
 
 ================================================================================
 Trait impl signature
@@ -1410,8 +1112,6 @@ pub trait Item: Clone + Eq + fmt::Debug {
     fn summarize(&self) -> Self::Summary;
 }
 
-unsafe trait Foo { }
-
 --------------------------------------------------------------------------------
 
 (source_file
@@ -1432,10 +1132,7 @@ unsafe trait Foo { }
             (self)))
         (scoped_type_identifier
           (identifier)
-          (type_identifier)))))
-  (trait_item
-    (type_identifier)
-    (declaration_list)))
+          (type_identifier))))))
 
 ================================================================================
 Trait declarations with optional type parameters
@@ -1491,36 +1188,6 @@ trait Foo<T: ?Sized> {
     (declaration_list)))
 
 ================================================================================
-Macro invocations inside trait declarations
-================================================================================
-
-
-pub trait A: B + C + D {
-    private_decl!{}
-    fn f(&self);
-}
-
---------------------------------------------------------------------------------
-
-(source_file
-  (trait_item
-    (visibility_modifier)
-    (type_identifier)
-    (trait_bounds
-      (type_identifier)
-      (type_identifier)
-      (type_identifier))
-    (declaration_list
-      (macro_invocation
-        (identifier)
-        (token_tree))
-      (function_signature_item
-        (identifier)
-        (parameters
-          (self_parameter
-            (self)))))))
-
-================================================================================
 Associated Types
 ================================================================================
 
@@ -1544,128 +1211,6 @@ pub trait Graph {
             (type_identifier))))
       (associated_type
         (type_identifier)))))
-
-================================================================================
-Generic Associated Types
-================================================================================
-
-pub trait Database {
-    type F<'a, D>: Future<Output = D> + 'a;
-}
-
-impl Database for Foo {
-    type F<'a, D> = DatabaseFuture<'a, D>;
-}
-
-fn use_database1<D: Database<F<'a, TD> = F>>() {}
-
-fn use_database2<D>()
-where
-    D: Database<F<'a, TD> = F>,
-{}
-
---------------------------------------------------------------------------------
-
-(source_file
-  (trait_item
-    (visibility_modifier)
-    (type_identifier)
-    (declaration_list
-      (associated_type
-        (type_identifier)
-        (type_parameters
-          (lifetime
-            (identifier))
-          (type_identifier))
-        (trait_bounds
-          (generic_type
-            (type_identifier)
-            (type_arguments
-              (type_binding
-                (type_identifier)
-                (type_identifier))))
-          (lifetime
-            (identifier))))))
-  (impl_item
-    (type_identifier)
-    (type_identifier)
-    (declaration_list
-      (type_item
-        (type_identifier)
-        (type_parameters
-          (lifetime
-            (identifier))
-          (type_identifier))
-        (generic_type
-          (type_identifier)
-          (type_arguments
-            (lifetime
-              (identifier))
-            (type_identifier))))))
-  (function_item
-    (identifier)
-    (type_parameters
-      (constrained_type_parameter
-        (type_identifier)
-        (trait_bounds
-          (generic_type
-            (type_identifier)
-            (type_arguments
-              (type_binding
-                (type_identifier)
-                (type_arguments
-                  (lifetime
-                    (identifier))
-                  (type_identifier))
-                (type_identifier)))))))
-    (parameters)
-    (block))
-  (function_item
-    (identifier)
-    (type_parameters
-      (type_identifier))
-    (parameters)
-    (where_clause
-      (where_predicate
-        (type_identifier)
-        (trait_bounds
-          (generic_type
-            (type_identifier)
-            (type_arguments
-              (type_binding
-                (type_identifier)
-                (type_arguments
-                  (lifetime
-                    (identifier))
-                  (type_identifier))
-                (type_identifier)))))))
-    (block)))
-
-================================================================================
-Higher-ranked types
-================================================================================
-
-trait T: for<'a> AddAssign<&'a usize> {
-}
-
---------------------------------------------------------------------------------
-
-(source_file
-  (trait_item
-    (type_identifier)
-    (trait_bounds
-      (higher_ranked_trait_bound
-        (type_parameters
-          (lifetime
-            (identifier)))
-        (generic_type
-          (type_identifier)
-          (type_arguments
-            (reference_type
-              (lifetime
-                (identifier))
-              (primitive_type))))))
-    (declaration_list)))
 
 ================================================================================
 Visibility modifiers
@@ -1732,27 +1277,7 @@ fn walk<F>(&self, it: &mut F) -> bool
   return false
 }
 
-impl<'a, T: 'a + Item> Iterator for Iter<'a, T> where Self: 'a {
-}
-
-impl<T> A for B<T>
-    where C<T>: D,
-          T: 'c,
-          'c: 'b,
-{
-}
-
-impl<'a, E> Read
-where &'a E: Read,
-{
-}
-
 impl<T> A for B<T> where (T, T, T): C, {}
-
-impl<T> A for B<T>
-    where for<'a> D<T>: E<'a>,
-{
-}
 
 pub trait A<B> where B: C,
 {
@@ -1793,73 +1318,6 @@ impl<A> Default for B<A> where *mut A: C + D {}
         (boolean_literal))))
   (impl_item
     type_parameters: (type_parameters
-      (lifetime
-        (identifier))
-      (constrained_type_parameter
-        left: (type_identifier)
-        bounds: (trait_bounds
-          (lifetime
-            (identifier))
-          (type_identifier))))
-    trait: (type_identifier)
-    type: (generic_type
-      type: (type_identifier)
-      type_arguments: (type_arguments
-        (lifetime
-          (identifier))
-        (type_identifier)))
-    (where_clause
-      (where_predicate
-        left: (type_identifier)
-        bounds: (trait_bounds
-          (lifetime
-            (identifier)))))
-    body: (declaration_list))
-  (impl_item
-    type_parameters: (type_parameters
-      (type_identifier))
-    trait: (type_identifier)
-    type: (generic_type
-      type: (type_identifier)
-      type_arguments: (type_arguments
-        (type_identifier)))
-    (where_clause
-      (where_predicate
-        left: (generic_type
-          type: (type_identifier)
-          type_arguments: (type_arguments
-            (type_identifier)))
-        bounds: (trait_bounds
-          (type_identifier)))
-      (where_predicate
-        left: (type_identifier)
-        bounds: (trait_bounds
-          (lifetime
-            (identifier))))
-      (where_predicate
-        left: (lifetime
-          (identifier))
-        bounds: (trait_bounds
-          (lifetime
-            (identifier)))))
-    body: (declaration_list))
-  (impl_item
-    type_parameters: (type_parameters
-      (lifetime
-        (identifier))
-      (type_identifier))
-    type: (type_identifier)
-    (where_clause
-      (where_predicate
-        left: (reference_type
-          (lifetime
-            (identifier))
-          type: (type_identifier))
-        bounds: (trait_bounds
-          (type_identifier))))
-    body: (declaration_list))
-  (impl_item
-    type_parameters: (type_parameters
       (type_identifier))
     trait: (type_identifier)
     type: (generic_type
@@ -1874,31 +1332,6 @@ impl<A> Default for B<A> where *mut A: C + D {}
           (type_identifier))
         bounds: (trait_bounds
           (type_identifier))))
-    body: (declaration_list))
-  (impl_item
-    type_parameters: (type_parameters
-      (type_identifier))
-    trait: (type_identifier)
-    type: (generic_type
-      type: (type_identifier)
-      type_arguments: (type_arguments
-        (type_identifier)))
-    (where_clause
-      (where_predicate
-        left: (higher_ranked_trait_bound
-          type_parameters: (type_parameters
-            (lifetime
-              (identifier)))
-          type: (generic_type
-            type: (type_identifier)
-            type_arguments: (type_arguments
-              (type_identifier))))
-        bounds: (trait_bounds
-          (generic_type
-            type: (type_identifier)
-            type_arguments: (type_arguments
-              (lifetime
-                (identifier)))))))
     body: (declaration_list))
   (trait_item
     (visibility_modifier)

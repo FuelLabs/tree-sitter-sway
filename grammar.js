@@ -75,7 +75,6 @@ module.exports = grammar({
     [$.scoped_identifier, $.scoped_type_identifier],
     [$.parameters, $._pattern],
     [$.parameters, $.tuple_struct_pattern],
-    [$.type_parameters, $.for_lifetimes],
   ],
 
   word: $ => $.identifier,
@@ -102,9 +101,7 @@ module.exports = grammar({
       $.inner_attribute_item,
       $.dep_item,
       $.struct_item,
-      $.union_item,
       $.enum_item,
-      $.type_item,
       $.function_item,
       $.function_signature_item,
       $.impl_item,
@@ -112,7 +109,6 @@ module.exports = grammar({
       $.associated_type,
       $.let_declaration,
       $.use_declaration,
-      $.static_item
     ),
 
     _token_pattern: $ => choice(
@@ -140,7 +136,7 @@ module.exports = grammar({
     ),
 
     fragment_specifier: $ => choice(
-      'block', 'expr', 'ident', 'item', 'lifetime', 'literal', 'meta', 'pat',
+      'block', 'expr', 'ident', 'item', 'literal', 'meta', 'pat',
       'path', 'stmt', 'tt', 'ty', 'vis'
     ),
 
@@ -169,9 +165,8 @@ module.exports = grammar({
       alias(choice(...primitive_types), $.primitive_type),
       /[/_\-=->,;:::!=?.@*&#%^+<>|~]+/,
       '\'',
-      'as', 'async', 'await', 'break', 'const', 'continue', 'default', 'enum', 'fn', 'for', 'if', 'impl',
-      'let', 'loop', 'match', 'dep', 'pub', 'return', 'static', 'struct', 'trait', 'type',
-      'union', 'unsafe', 'use', 'where', 'while'
+      'as', 'break', 'const', 'continue', 'default', 'dep', 'enum', 'fn', 'for', 'if', 'impl',
+      'let', 'match', 'pub', 'return', 'struct', 'trait', 'use', 'where', 'while'
     ),
 
     // Section - Declarations
@@ -232,15 +227,6 @@ module.exports = grammar({
         ),
         ';'
       ),
-    ),
-
-    union_item: $ => seq(
-      optional($.visibility_modifier),
-      'union',
-      field('name', $._type_identifier),
-      field('type_parameters', optional($.type_parameters)),
-      optional($.where_clause),
-      field('body', $.field_declaration_list),
     ),
 
     enum_item: $ => seq(
@@ -312,33 +298,6 @@ module.exports = grammar({
       ';'
     ),
 
-    static_item: $ => seq(
-      optional($.visibility_modifier),
-      'static',
-
-      optional('ref'),
-
-      optional($.mutable_specifier),
-      field('name', $.identifier),
-      ':',
-      field('type', $._type),
-      optional(seq(
-        '=',
-        field('value', $._expression)
-      )),
-      ';'
-    ),
-
-    type_item: $ => seq(
-      optional($.visibility_modifier),
-      'type',
-      field('name', $._type_identifier),
-      field('type_parameters', optional($.type_parameters)),
-      '=',
-      field('type', $._type),
-      ';'
-    ),
-
     function_item: $ => seq(
       optional($.visibility_modifier),
       optional($.function_modifiers),
@@ -364,10 +323,8 @@ module.exports = grammar({
     ),
 
     function_modifiers: $ => repeat1(choice(
-      'async',
       'default',
       'const',
-      'unsafe',
     )),
 
     where_clause: $ => seq(
@@ -378,7 +335,6 @@ module.exports = grammar({
 
     where_predicate: $ => seq(
       field('left', choice(
-        $.lifetime,
         $._type_identifier,
         $.scoped_type_identifier,
         $.generic_type,
@@ -392,7 +348,6 @@ module.exports = grammar({
     ),
 
     impl_item: $ => seq(
-      optional('unsafe'),
       'impl',
       field('type_parameters', optional($.type_parameters)),
       optional(seq(
@@ -410,7 +365,6 @@ module.exports = grammar({
 
     trait_item: $ => seq(
       optional($.visibility_modifier),
-      optional('unsafe'),
       'trait',
       field('name', $._type_identifier),
       field('type_parameters', optional($.type_parameters)),
@@ -431,7 +385,6 @@ module.exports = grammar({
       ':',
       sepBy1('+', choice(
         $._type,
-        $.lifetime,
         $.higher_ranked_trait_bound,
         $.removed_trait_bound
       ))
@@ -451,7 +404,6 @@ module.exports = grammar({
     type_parameters: $ => prec(1, seq(
       '<',
       sepBy1(',', choice(
-        $.lifetime,
         $.metavariable,
         $._type_identifier,
         $.constrained_type_parameter,
@@ -470,7 +422,7 @@ module.exports = grammar({
     ),
 
     constrained_type_parameter: $ => seq(
-      field('left', choice($.lifetime, $._type_identifier)),
+      field('left', $._type_identifier),
       field('bounds', $.trait_bounds)
     ),
 
@@ -560,7 +512,6 @@ module.exports = grammar({
 
     self_parameter: $ => seq(
       optional('&'),
-      optional($.lifetime),
       optional($.mutable_specifier),
       $.self
     ),
@@ -627,8 +578,6 @@ module.exports = grammar({
       field('alias', $._type)
     ),
 
-    lifetime: $ => seq("'", $.identifier),
-
     array_type: $ => seq(
       '[',
       field('element', $._type),
@@ -639,16 +588,7 @@ module.exports = grammar({
       ']'
     ),
 
-    for_lifetimes: $ => seq(
-      'for',
-      '<',
-      sepBy1(',', $.lifetime),
-      optional(','),
-      '>'
-    ),
-
     function_type: $ => seq(
-      optional($.for_lifetimes),
       prec(PREC.call, seq(
         choice(
           field('trait', choice(
@@ -701,18 +641,13 @@ module.exports = grammar({
       field('type_arguments', $.type_arguments)
     ),
 
-    bounded_type: $ => prec.left(-1, choice(
-      seq($.lifetime, '+', $._type),
-      seq($._type, '+', $._type),
-      seq($._type, '+', $.lifetime)
-    )),
+    bounded_type: $ => prec.left(-1, seq($._type, '+', $._type)),
 
     type_arguments: $ => seq(
       token(prec(1, '<')),
       sepBy1(',', choice(
         $._type,
         $.type_binding,
-        $.lifetime,
         $._literal,
         $.block,
       )),
@@ -729,7 +664,6 @@ module.exports = grammar({
 
     reference_type: $ => seq(
       '&',
-      optional($.lifetime),
       optional($.mutable_specifier),
       field('type', $._type)
     ),
@@ -784,7 +718,6 @@ module.exports = grammar({
       $.self,
       $.scoped_identifier,
       $.generic_function,
-      $.await_expression,
       $.field_expression,
       $.array_expression,
       $.tuple_expression,
@@ -805,13 +738,10 @@ module.exports = grammar({
     ),
 
     _expression_ending_with_block: $ => choice(
-      $.unsafe_block,
-      $.async_block,
       $.block,
       $.if_expression,
       $.match_expression,
       $.while_expression,
-      $.loop_expression,
       $.for_expression,
       $.const_block
     ),
@@ -1098,12 +1028,6 @@ module.exports = grammar({
       field('body', $.block)
     ),
 
-    loop_expression: $ => seq(
-      optional(seq($.loop_label, ':')),
-      'loop',
-      field('body', $.block)
-    ),
-
     for_expression: $ => seq(
       optional(seq($.loop_label, ':')),
       'for',
@@ -1147,12 +1071,6 @@ module.exports = grammar({
 
     index_expression: $ => prec(PREC.call, seq($._expression, '[', $._expression, ']')),
 
-    await_expression: $ => prec(PREC.field, seq(
-      $._expression,
-      '.',
-      'await'
-    )),
-
     field_expression: $ => prec(PREC.field, seq(
       field('value', $._expression),
       '.',
@@ -1161,17 +1079,6 @@ module.exports = grammar({
         $.integer_literal
       ))
     )),
-
-    unsafe_block: $ => seq(
-      'unsafe',
-      $.block
-    ),
-
-    async_block: $ => seq(
-      'async',
-      optional("move"),
-      $.block
-    ),
 
     block: $ => seq(
       '{',
@@ -1384,10 +1291,7 @@ module.exports = grammar({
 
     identifier: $ => /(r#)?[_\p{XID_Start}][_\p{XID_Continue}]*/,
 
-    _reserved_identifier: $ => alias(choice(
-      'default',
-      'union',
-    ), $.identifier),
+    _reserved_identifier: $ => alias('default', $.identifier),
 
     _type_identifier: $ => alias($.identifier, $.type_identifier),
     _field_identifier: $ => alias($.identifier, $.field_identifier),

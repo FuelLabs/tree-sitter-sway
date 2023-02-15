@@ -1,0 +1,268 @@
+================================================================================
+The unit type
+================================================================================
+
+let a: ();
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (let_declaration
+    (identifier)
+    (unit_type)))
+
+================================================================================
+Tuple types
+================================================================================
+
+let a: (i32, String);
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (let_declaration
+    (identifier)
+    (tuple_type
+      (primitive_type)
+      (type_identifier))))
+
+================================================================================
+Reference types
+================================================================================
+
+let a: &B;
+let b: &str;
+let c: &mut str;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (let_declaration
+    (identifier)
+    (reference_type
+      (type_identifier)))
+  (let_declaration
+    (identifier)
+    (reference_type
+      (primitive_type)))
+  (let_declaration
+    (identifier)
+    (reference_type
+      (mutable_specifier)
+      (primitive_type))))
+
+================================================================================
+Raw pointer types
+================================================================================
+
+let a: *mut B;
+let b: *const str;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (let_declaration
+    (identifier)
+    (pointer_type
+      (mutable_specifier)
+      (type_identifier)))
+  (let_declaration
+    (identifier)
+    (pointer_type
+      (primitive_type))))
+
+================================================================================
+Generic types
+================================================================================
+
+let a: B<C>;
+let d: E<F, str>;
+let j: H<K=L>;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (let_declaration
+    (identifier)
+    (generic_type
+      (type_identifier)
+      (type_arguments
+        (type_identifier))))
+  (let_declaration
+    (identifier)
+    (generic_type
+      (type_identifier)
+      (type_arguments
+        (type_identifier)
+        (primitive_type))))
+  (let_declaration
+    (identifier)
+    (generic_type
+      (type_identifier)
+      (type_arguments
+        (type_binding
+          (type_identifier)
+          (type_identifier))))))
+
+================================================================================
+Scoped types
+================================================================================
+
+let a: B::C;
+let d: E::F::G;
+let h: I::J<K>;
+let l: M<N>::O;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (let_declaration
+    (identifier)
+    (scoped_type_identifier
+      (identifier)
+      (type_identifier)))
+  (let_declaration
+    (identifier)
+    (scoped_type_identifier
+      (scoped_identifier
+        (identifier)
+        (identifier))
+      (type_identifier)))
+  (let_declaration
+    (identifier)
+    (generic_type
+      (scoped_type_identifier
+        (identifier)
+        (type_identifier))
+      (type_arguments
+        (type_identifier))))
+  (let_declaration
+    (identifier)
+    (scoped_type_identifier
+      (generic_type
+        (type_identifier)
+        (type_arguments
+          (type_identifier)))
+      (type_identifier))))
+
+================================================================================
+Array types
+================================================================================
+
+let a: [B; 4];
+let c: &[D];
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (let_declaration
+    (identifier)
+    (array_type
+      (type_identifier)
+      (integer_literal)))
+  (let_declaration
+    (identifier)
+    (reference_type
+      (array_type
+        (type_identifier)))))
+
+================================================================================
+Function types
+================================================================================
+
+fn high_order1(value: i32, f: fn(i32)) -> i32 {}
+
+fn high_order2(value: i32, f: fn(i32) -> i32) -> i32 {
+    f(value)
+}
+
+fn high_order3(value: i32, f: &FnOnce(i32) -> i32) -> i32 {
+    f(value)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_item
+    (identifier)
+    (parameters
+      (parameter
+        (identifier)
+        (primitive_type))
+      (parameter
+        (identifier)
+        (function_type
+          (parameters
+            (primitive_type)))))
+    (primitive_type)
+    (block))
+  (function_item
+    (identifier)
+    (parameters
+      (parameter
+        (identifier)
+        (primitive_type))
+      (parameter
+        (identifier)
+        (function_type
+          (parameters
+            (primitive_type))
+          (primitive_type))))
+    (primitive_type)
+    (block
+      (call_expression
+        (identifier)
+        (arguments
+          (identifier)))))
+  (function_item
+    (identifier)
+    (parameters
+      (parameter
+        (identifier)
+        (primitive_type))
+      (parameter
+        (identifier)
+        (reference_type
+          (function_type
+            (type_identifier)
+            (parameters
+              (primitive_type))
+            (primitive_type)))))
+    (primitive_type)
+    (block
+      (call_expression
+        (identifier)
+        (arguments
+          (identifier))))))
+
+================================================================================
+Type cast expressions with generics
+================================================================================
+
+a as B<C>;
+d as *mut E<<F as E>::G>;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (expression_statement
+    (type_cast_expression
+      (identifier)
+      (generic_type
+        (type_identifier)
+        (type_arguments
+          (type_identifier)))))
+  (expression_statement
+    (type_cast_expression
+      (identifier)
+      (pointer_type
+        (mutable_specifier)
+        (generic_type
+          (type_identifier)
+          (type_arguments
+            (scoped_type_identifier
+              (bracketed_type
+                (qualified_type
+                  (type_identifier)
+                  (type_identifier)))
+              (type_identifier))))))))

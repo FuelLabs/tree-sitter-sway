@@ -163,13 +163,24 @@ module.exports = grammar({
     // definitions. This is everything except $ and metavariables (which begin
     // with $).
     _non_special_token: $ => choice(
-      $._literal, $.identifier, $.mutable_specifier, $.self, $.super,
+      $._literal, $.identifier, $.mutable_specifier, $.self,
       alias(choice(...primitive_types), $.primitive_type),
       /[/_\-=->,;:::!=?.@*&#%^+<>|~]+/,
       '\'',
       'as', 'break', 'configurable', 'const', 'continue', 'default', 'dep', 'enum', 'fn', 'for', 'if', 'impl',
       'let', 'match', 'pub', 'return', 'storage', 'struct', 'trait', 'use', 'where', 'while'
     ),
+
+
+    // TODO:
+    // abi
+    // asm
+    // contract
+    // deref
+    // library
+    // predicate
+
+
 
     // Section - Declarations
 
@@ -560,7 +571,6 @@ module.exports = grammar({
           '(',
           choice(
             $.self,
-            $.super,
             seq('in', $._path)
           ),
           ')'
@@ -1308,7 +1318,6 @@ module.exports = grammar({
       $.self,
       alias(choice(...primitive_types), $.identifier),
       $.metavariable,
-      $.super,
       $.identifier,
       $.scoped_identifier,
       $._reserved_identifier,
@@ -1322,7 +1331,6 @@ module.exports = grammar({
     _field_identifier: $ => alias($.identifier, $.field_identifier),
 
     self: $ => 'self',
-    super: $ => 'super',
 
     metavariable: $ => /\$[a-zA-Z_]\w*/
   }

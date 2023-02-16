@@ -608,10 +608,6 @@
         {
           "type": "self",
           "named": true
-        },
-        {
-          "type": "super",
-          "named": true
         }
       ]
     }
@@ -2736,10 +2732,6 @@
         {
           "type": "self",
           "named": true
-        },
-        {
-          "type": "super",
-          "named": true
         }
       ]
     }
@@ -2906,10 +2898,6 @@
           {
             "type": "self",
             "named": true
-          },
-          {
-            "type": "super",
-            "named": true
           }
         ]
       }
@@ -2956,10 +2944,6 @@
           {
             "type": "self",
             "named": true
-          },
-          {
-            "type": "super",
-            "named": true
           }
         ]
       }
@@ -2997,10 +2981,6 @@
           },
           {
             "type": "self",
-            "named": true
-          },
-          {
-            "type": "super",
             "named": true
           }
         ]
@@ -3340,10 +3320,6 @@
           "named": true
         },
         {
-          "type": "super",
-          "named": true
-        },
-        {
           "type": "token_repetition",
           "named": true
         },
@@ -3384,10 +3360,6 @@
         },
         {
           "type": "self",
-          "named": true
-        },
-        {
-          "type": "super",
           "named": true
         },
         {
@@ -3438,10 +3410,6 @@
           "named": true
         },
         {
-          "type": "super",
-          "named": true
-        },
-        {
           "type": "token_repetition",
           "named": true
         },
@@ -3482,10 +3450,6 @@
         },
         {
           "type": "self",
-          "named": true
-        },
-        {
-          "type": "super",
           "named": true
         },
         {
@@ -3858,10 +3822,6 @@
           {
             "type": "self",
             "named": true
-          },
-          {
-            "type": "super",
-            "named": true
           }
         ]
       }
@@ -3893,10 +3853,6 @@
           },
           {
             "type": "self",
-            "named": true
-          },
-          {
-            "type": "super",
             "named": true
           },
           {
@@ -3954,10 +3910,6 @@
           "named": true
         },
         {
-          "type": "super",
-          "named": true
-        },
-        {
           "type": "use_as_clause",
           "named": true
         },
@@ -3995,10 +3947,6 @@
         {
           "type": "self",
           "named": true
-        },
-        {
-          "type": "super",
-          "named": true
         }
       ]
     }
@@ -4030,10 +3978,6 @@
         },
         {
           "type": "self",
-          "named": true
-        },
-        {
-          "type": "super",
           "named": true
         }
       ]
@@ -4546,10 +4490,6 @@
   {
     "type": "struct",
     "named": false
-  },
-  {
-    "type": "super",
-    "named": true
   },
   {
     "type": "trait",

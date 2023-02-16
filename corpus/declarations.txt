@@ -1217,7 +1217,6 @@ Visibility modifiers
 ================================================================================
 
 pub fn a() {}
-pub(super) fn b() {}
 pub(self) fn c() {}
 
 --------------------------------------------------------------------------------
@@ -1225,12 +1224,6 @@ pub(self) fn c() {}
 (source_file
   (function_item
     (visibility_modifier)
-    (identifier)
-    (parameters)
-    (block))
-  (function_item
-    (visibility_modifier
-      (super))
     (identifier)
     (parameters)
     (block))

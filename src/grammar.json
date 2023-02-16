@@ -505,10 +505,6 @@
           "name": "self"
         },
         {
-          "type": "SYMBOL",
-          "name": "super"
-        },
-        {
           "type": "ALIAS",
           "content": {
             "type": "CHOICE",
@@ -3095,10 +3091,6 @@
                       {
                         "type": "SYMBOL",
                         "name": "self"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "super"
                       },
                       {
                         "type": "SEQ",
@@ -7549,10 +7541,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "super"
-        },
-        {
-          "type": "SYMBOL",
           "name": "identifier"
         },
         {
@@ -7599,10 +7587,6 @@
     "self": {
       "type": "STRING",
       "value": "self"
-    },
-    "super": {
-      "type": "STRING",
-      "value": "super"
     },
     "metavariable": {
       "type": "PATTERN",

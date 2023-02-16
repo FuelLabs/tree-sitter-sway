@@ -397,3 +397,24 @@ impl Ord for u32 {
               (asm_return
                 (identifier)
                 (identifier)))))))))
+
+================================================================================
+Program Type
+================================================================================
+
+contract;
+
+script;
+
+predicate;
+
+library my_lib;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (program_type)
+  (program_type)
+  (program_type)
+  (program_type
+    (identifier)))

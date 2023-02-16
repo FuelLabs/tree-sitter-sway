@@ -894,6 +894,10 @@
           "named": true
         },
         {
+          "type": "program_type",
+          "named": true
+        },
+        {
           "type": "storage_item",
           "named": true
         }
@@ -2803,6 +2807,22 @@
     }
   },
   {
+    "type": "program_type",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_pattern",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "qualified_type",
     "named": true,
     "fields": {
@@ -3200,6 +3220,10 @@
         },
         {
           "type": "expression_statement",
+          "named": true
+        },
+        {
+          "type": "program_type",
           "named": true
         },
         {
@@ -4490,6 +4514,10 @@
     "named": false
   },
   {
+    "type": "contract",
+    "named": false
+  },
+  {
     "type": "default",
     "named": false
   },
@@ -4574,6 +4602,10 @@
     "named": false
   },
   {
+    "type": "library ",
+    "named": false
+  },
+  {
     "type": "line_comment",
     "named": true
   },
@@ -4610,6 +4642,10 @@
     "named": false
   },
   {
+    "type": "predicate",
+    "named": false
+  },
+  {
     "type": "primitive_type",
     "named": true
   },
@@ -4627,6 +4663,10 @@
   },
   {
     "type": "return",
+    "named": false
+  },
+  {
+    "type": "script",
     "named": false
   },
   {

@@ -83,6 +83,7 @@ module.exports = grammar({
     source_file: $ => repeat($._statement),
 
     _statement: $ => choice(
+      $.program_type,
       $.expression_statement,
       $._declaration_statement,
       $.configurable_item,
@@ -91,6 +92,10 @@ module.exports = grammar({
     ),
 
     empty_statement: $ => ';',
+
+    program_type: $ => seq(
+      choice('contract', 'script', 'predicate', seq('library ', field('name', $._pattern))), ';'
+    ),
 
     expression_statement: $ => choice(
       seq($._expression, ';'),
@@ -171,14 +176,6 @@ module.exports = grammar({
       'abi', 'as', 'break', 'configurable', 'const', 'continue', 'default', 'dep', 'enum', 'fn', 'for', 'if', 'impl',
       'let', 'match', 'pub', 'return', 'storage', 'struct', 'trait', 'use', 'where', 'while'
     ),
-
-
-    // TODO:
-    // contract
-    // library
-    // predicate
-
-
 
     // Section - Declarations
 

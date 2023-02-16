@@ -19,7 +19,6 @@
   (where_clause)
 
   (token_tree)
-  (macro_definition)
   (token_tree_pattern)
   (token_repetition)
 ] @indent
@@ -59,13 +58,6 @@
   .
   (_) @expr-start
   condition: (_) @indent
-  (#not-same-line? @indent @expr-start)
-  (#set! "scope" "all")
-)
-(static_item
-  .
-  (_) @expr-start
-  value: (_) @indent
   (#not-same-line? @indent @expr-start)
   (#set! "scope" "all")
 )

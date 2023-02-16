@@ -7,9 +7,6 @@
 (enum_item
   body: (_) @class.inside) @class.around
 
-(union_item
-  body: (_) @class.inside) @class.around
-
 (trait_item
   body: (_) @class.inside) @class.around
 

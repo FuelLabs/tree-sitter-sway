@@ -122,15 +122,20 @@
 
 [
   "while"
-  "loop"
 ] @keyword.control.repeat
 
 [
   "break"
   "continue"
   "return"
-  "await"
 ] @keyword.control.return
+
+[
+  "contract"
+  "script"
+  "predicate"
+  "library"
+] @keyword.other
 
 "use" @keyword.control.import
 (mod_item "mod" @keyword.control.import !body)
@@ -139,33 +144,27 @@
 (type_cast_expression "as" @keyword.operator)
 
 [
-  (crate)
-  (super)
   "as"
   "pub"
-  "mod"
-  "extern"
+  "dep"
 
+  "abi"
   "impl"
   "where"
   "trait"
   "for"
-
-  "default"
-  "async"
 ] @keyword
 
 [
   "struct"
   "enum"
-  "union"
-  "type"
+  "storage"
+  "configurable"
 ] @keyword.storage.type
 
 "let" @keyword.storage
 "fn" @keyword.function
-"unsafe" @keyword.special
-"macro_rules!" @function.macro
+"abi" @keyword.function
 
 (mutable_specifier) @keyword.storage.modifier.mut
 
@@ -173,11 +172,10 @@
 (self_parameter "&" @keyword.storage.modifier.ref)
 
 [
-  "static"
   "const"
   "ref"
+  "deref"
   "move"
-  "dyn"
 ] @keyword.storage.modifier
 
 ; TODO: variable.mut to highlight mutable identifiers via locals.scm
@@ -258,41 +256,6 @@
 (function_signature_item
   name: (identifier) @function)
 
-; ---
-; Macros
-; ---
-
-(attribute
-  (identifier) @special
-  arguments: (token_tree (identifier) @type)
-  (#eq? @special "derive")
-)
-
-(attribute
-  (identifier) @function.macro)
-(attribute
-  [
-    (identifier) @function.macro
-    (scoped_identifier
-      name: (identifier) @function.macro)
-  ]
-  (token_tree (identifier) @function.macro)?)
-
-(inner_attribute_item) @attribute
-
-(macro_definition
-  name: (identifier) @function.macro)
-(macro_invocation
-  macro: [
-    ((identifier) @function.macro)
-    (scoped_identifier
-      name: (identifier) @function.macro)
-  ]
-  "!" @function.macro)
-
-(metavariable) @variable.parameter
-(fragment_specifier) @type
-
 ; -------
 ; Operators
 ; -------
@@ -346,9 +309,7 @@
   argument: (identifier) @namespace)
 (use_wildcard
   (identifier) @namespace)
-(extern_crate_declaration
-  name: (identifier) @namespace)
-(mod_item
+(dep_item
   name: (identifier) @namespace)
 (scoped_use_list
   path: (identifier)? @namespace)

@@ -3422,96 +3422,6 @@
     }
   },
   {
-    "type": "token_repetition",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "metavariable",
-          "named": true
-        },
-        {
-          "type": "mutable_specifier",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "self",
-          "named": true
-        },
-        {
-          "type": "token_repetition",
-          "named": true
-        },
-        {
-          "type": "token_tree",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "token_repetition_pattern",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "metavariable",
-          "named": true
-        },
-        {
-          "type": "mutable_specifier",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "self",
-          "named": true
-        },
-        {
-          "type": "token_binding_pattern",
-          "named": true
-        },
-        {
-          "type": "token_repetition_pattern",
-          "named": true
-        },
-        {
-          "type": "token_tree_pattern",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "token_tree",
     "named": true,
     "fields": {},
@@ -3544,58 +3454,7 @@
           "named": true
         },
         {
-          "type": "token_repetition",
-          "named": true
-        },
-        {
           "type": "token_tree",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "token_tree_pattern",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "metavariable",
-          "named": true
-        },
-        {
-          "type": "mutable_specifier",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "self",
-          "named": true
-        },
-        {
-          "type": "token_binding_pattern",
-          "named": true
-        },
-        {
-          "type": "token_repetition_pattern",
-          "named": true
-        },
-        {
-          "type": "token_tree_pattern",
           "named": true
         }
       ]
@@ -4566,7 +4425,7 @@
     "named": false
   },
   {
-    "type": "library ",
+    "type": "library",
     "named": false
   },
   {

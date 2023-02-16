@@ -61,11 +61,20 @@
               "value": "predicate"
             },
             {
+              "type": "STRING",
+              "value": "library"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SEQ",
               "members": [
                 {
                   "type": "STRING",
-                  "value": "library "
+                  "value": " "
                 },
                 {
                   "type": "FIELD",
@@ -76,6 +85,9 @@
                   }
                 }
               ]
+            },
+            {
+              "type": "BLANK"
             }
           ]
         },
@@ -177,14 +189,6 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "token_tree_pattern"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "token_repetition_pattern"
-        },
-        {
-          "type": "SYMBOL",
           "name": "token_binding_pattern"
         },
         {
@@ -194,71 +198,6 @@
         {
           "type": "SYMBOL",
           "name": "_non_special_token"
-        }
-      ]
-    },
-    "token_tree_pattern": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "("
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_token_pattern"
-              }
-            },
-            {
-              "type": "STRING",
-              "value": ")"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "["
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_token_pattern"
-              }
-            },
-            {
-              "type": "STRING",
-              "value": "]"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "{"
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_token_pattern"
-              }
-            },
-            {
-              "type": "STRING",
-              "value": "}"
-            }
-          ]
         }
       ]
     },
@@ -290,59 +229,6 @@
           }
         ]
       }
-    },
-    "token_repetition_pattern": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "$"
-        },
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_token_pattern"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "[^+*?]+"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "+"
-            },
-            {
-              "type": "STRING",
-              "value": "*"
-            },
-            {
-              "type": "STRING",
-              "value": "?"
-            }
-          ]
-        }
-      ]
     },
     "fragment_specifier": {
       "type": "CHOICE",
@@ -403,10 +289,6 @@
         {
           "type": "SYMBOL",
           "name": "token_tree"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "token_repetition"
         },
         {
           "type": "SYMBOL",
@@ -478,59 +360,6 @@
             {
               "type": "STRING",
               "value": "}"
-            }
-          ]
-        }
-      ]
-    },
-    "token_repetition": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "$"
-        },
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_tokens"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "[^+*?]+"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "+"
-            },
-            {
-              "type": "STRING",
-              "value": "*"
-            },
-            {
-              "type": "STRING",
-              "value": "?"
             }
           ]
         }

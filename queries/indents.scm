@@ -19,8 +19,6 @@
   (where_clause)
 
   (token_tree)
-  (token_tree_pattern)
-  (token_repetition)
 ] @indent
 
 [

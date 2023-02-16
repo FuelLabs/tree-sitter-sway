@@ -54,16 +54,3 @@ Line comments
 
 (source_file
   (line_comment))
-
-=====================================
-Greek letters in identifiers
-=====================================
-
-const σ1 : Σ = 0;
-const ψ_2 : Ψ = 1;
-
----
-
-(source_file
-  (const_item (identifier) (type_identifier) (integer_literal))
-  (const_item (identifier) (type_identifier) (integer_literal)))

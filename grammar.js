@@ -94,7 +94,7 @@ module.exports = grammar({
     empty_statement: $ => ';',
 
     program_type: $ => seq(
-      choice('contract', 'script', 'predicate', seq('library ', field('name', $._pattern))), ';'
+      choice('contract', 'script', 'predicate', 'library'), optional(seq(' ', field('name', $._pattern))), ';',
     ),
 
     expression_statement: $ => choice(
@@ -120,17 +120,9 @@ module.exports = grammar({
     ),
 
     _token_pattern: $ => choice(
-      $.token_tree_pattern,
-      $.token_repetition_pattern,
       $.token_binding_pattern,
       $.metavariable,
       $._non_special_token
-    ),
-
-    token_tree_pattern: $ => choice(
-      seq('(', repeat($._token_pattern), ')'),
-      seq('[', repeat($._token_pattern), ']'),
-      seq('{', repeat($._token_pattern), '}')
     ),
 
     token_binding_pattern: $ => prec(1, seq(
@@ -139,10 +131,6 @@ module.exports = grammar({
       field('type', $.fragment_specifier)
     )),
 
-    token_repetition_pattern: $ => seq(
-      '$', '(', repeat($._token_pattern), ')', optional(/[^+*?]+/), choice('+', '*', '?')
-    ),
-
     fragment_specifier: $ => choice(
       'block', 'expr', 'ident', 'item', 'literal', 'meta', 'pat',
       'path', 'stmt', 'tt', 'ty', 'vis'
@@ -150,7 +138,6 @@ module.exports = grammar({
 
     _tokens: $ => choice(
       $.token_tree,
-      $.token_repetition,
       $.metavariable,
       $._non_special_token
     ),
@@ -159,10 +146,6 @@ module.exports = grammar({
       seq('(', repeat($._tokens), ')'),
       seq('[', repeat($._tokens), ']'),
       seq('{', repeat($._tokens), '}')
-    ),
-
-    token_repetition: $ => seq(
-      '$', '(', repeat($._tokens), ')', optional(/[^+*?]+/), choice('+', '*', '?')
     ),
 
     // Matches non-delimiter tokens common to both macro invocations and

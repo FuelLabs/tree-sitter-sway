@@ -27,6 +27,10 @@
         {
           "type": "SYMBOL",
           "name": "storage_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "abi_item"
         }
       ]
     },
@@ -106,10 +110,6 @@
         {
           "type": "SYMBOL",
           "name": "trait_item"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "associated_type"
         },
         {
           "type": "SYMBOL",
@@ -2114,6 +2114,31 @@
         }
       ]
     },
+    "abi_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "abi"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_type_identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "SYMBOL",
+            "name": "declaration_list"
+          }
+        }
+      ]
+    },
     "trait_item": {
       "type": "SEQ",
       "members": [
@@ -2192,59 +2217,6 @@
             "type": "SYMBOL",
             "name": "declaration_list"
           }
-        }
-      ]
-    },
-    "associated_type": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "type"
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_type_identifier"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "type_parameters",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "type_parameters"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "bounds",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "trait_bounds"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        },
-        {
-          "type": "STRING",
-          "value": ";"
         }
       ]
     },

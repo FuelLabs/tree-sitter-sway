@@ -4,10 +4,6 @@
     "named": true,
     "subtypes": [
       {
-        "type": "associated_type",
-        "named": true
-      },
-      {
         "type": "attribute_item",
         "named": true
       },
@@ -400,6 +396,32 @@
     ]
   },
   {
+    "type": "abi_item",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "declaration_list",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "abstract_type",
     "named": true,
     "fields": {
@@ -522,42 +544,6 @@
         "types": [
           {
             "type": "_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "associated_type",
-    "named": true,
-    "fields": {
-      "bounds": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "trait_bounds",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "type_identifier",
-            "named": true
-          }
-        ]
-      },
-      "type_parameters": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "type_parameters",
             "named": true
           }
         ]
@@ -760,6 +746,10 @@
         },
         {
           "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "abi_item",
           "named": true
         },
         {
@@ -3053,6 +3043,10 @@
           "named": true
         },
         {
+          "type": "abi_item",
+          "named": true
+        },
+        {
           "type": "configurable_item",
           "named": true
         },
@@ -4304,6 +4298,10 @@
     "named": false
   },
   {
+    "type": "abi",
+    "named": false
+  },
+  {
     "type": "as",
     "named": false
   },
@@ -4505,10 +4503,6 @@
   },
   {
     "type": "ty",
-    "named": false
-  },
-  {
-    "type": "type",
     "named": false
   },
   {

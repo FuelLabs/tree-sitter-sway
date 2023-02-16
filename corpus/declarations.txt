@@ -1139,7 +1139,6 @@ Trait declarations with optional type parameters
 ================================================================================
 
 trait Add<RHS=Self> {
-    type Output;
     fn add(self, rhs: RHS) -> Self::Output;
 }
 
@@ -1153,8 +1152,6 @@ trait Add<RHS=Self> {
         (type_identifier)
         (type_identifier)))
     (declaration_list
-      (associated_type
-        (type_identifier))
       (function_signature_item
         (identifier)
         (parameters
@@ -1186,31 +1183,6 @@ trait Foo<T: ?Sized> {
           (removed_trait_bound
             (type_identifier)))))
     (declaration_list)))
-
-================================================================================
-Associated Types
-================================================================================
-
-pub trait Graph {
-    type N: fmt::Display;
-    type E;
-}
-
---------------------------------------------------------------------------------
-
-(source_file
-  (trait_item
-    (visibility_modifier)
-    (type_identifier)
-    (declaration_list
-      (associated_type
-        (type_identifier)
-        (trait_bounds
-          (scoped_type_identifier
-            (identifier)
-            (type_identifier))))
-      (associated_type
-        (type_identifier)))))
 
 ================================================================================
 Visibility modifiers

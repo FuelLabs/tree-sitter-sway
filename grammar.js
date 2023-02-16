@@ -87,6 +87,7 @@ module.exports = grammar({
       $._declaration_statement,
       $.configurable_item,
       $.storage_item,
+      $.abi_item,
     ),
 
     empty_statement: $ => ';',
@@ -108,7 +109,6 @@ module.exports = grammar({
       $.function_signature_item,
       $.impl_item,
       $.trait_item,
-      $.associated_type,
       $.let_declaration,
       $.use_declaration,
     ),
@@ -167,13 +167,12 @@ module.exports = grammar({
       alias(choice(...primitive_types), $.primitive_type),
       /[/_\-=->,;:::!=?.@*&#%^+<>|~]+/,
       '\'',
-      'as', 'break', 'configurable', 'const', 'continue', 'default', 'dep', 'enum', 'fn', 'for', 'if', 'impl',
+      'abi', 'as', 'break', 'configurable', 'const', 'continue', 'default', 'dep', 'enum', 'fn', 'for', 'if', 'impl',
       'let', 'match', 'pub', 'return', 'storage', 'struct', 'trait', 'use', 'where', 'while'
     ),
 
 
     // TODO:
-    // abi
     // asm
     // contract
     // deref
@@ -399,6 +398,12 @@ module.exports = grammar({
       choice(field('body', $.declaration_list), ';')
     ),
 
+    abi_item: $ => seq(
+      'abi',
+      field('name', $._type_identifier),
+      field('body', $.declaration_list)
+    ),
+
     trait_item: $ => seq(
       optional($.visibility_modifier),
       'trait',
@@ -407,14 +412,6 @@ module.exports = grammar({
       field('bounds', optional($.trait_bounds)),
       optional($.where_clause),
       field('body', $.declaration_list)
-    ),
-
-    associated_type: $ => seq(
-      'type',
-      field('name', $._type_identifier),
-      field('type_parameters', optional($.type_parameters)),
-      field('bounds', optional($.trait_bounds)),
-      ';'
     ),
 
     trait_bounds: $ => seq(

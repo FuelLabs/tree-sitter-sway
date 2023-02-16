@@ -174,3 +174,105 @@ configurable {
           (primitive_type))
         (integer_literal))
       (line_comment))))
+
+================================================================================
+ABI
+================================================================================
+
+abi Empty {}
+
+abi Counter {
+    #[storage(read, write)]
+    fn increment();
+
+    #[storage(read, write)]
+    fn decrement();
+
+    #[storage(read)]
+    fn count() -> u64;
+}
+
+abi OtherContract {
+    #[payable]
+    fn external_call();
+}
+
+abi IdentityExample {
+    #[storage(read)]
+    fn access_control_with_identity();
+    fn cast_to_identity();
+    fn different_executions(my_identity: Identity);
+    fn identity_to_contract_id(my_identity: Identity);
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (abi_item
+    (type_identifier)
+    (declaration_list))
+  (abi_item
+    (type_identifier)
+    (declaration_list
+      (attribute_item
+        (attribute
+          (identifier)
+          (token_tree
+            (identifier)
+            (identifier))))
+      (function_signature_item
+        (identifier)
+        (parameters))
+      (attribute_item
+        (attribute
+          (identifier)
+          (token_tree
+            (identifier)
+            (identifier))))
+      (function_signature_item
+        (identifier)
+        (parameters))
+      (attribute_item
+        (attribute
+          (identifier)
+          (token_tree
+            (identifier))))
+      (function_signature_item
+        (identifier)
+        (parameters)
+        (primitive_type))))
+  (abi_item
+    (type_identifier)
+    (declaration_list
+      (attribute_item
+        (attribute
+          (identifier)))
+      (function_signature_item
+        (identifier)
+        (parameters))))
+  (abi_item
+    (type_identifier)
+    (declaration_list
+      (attribute_item
+        (attribute
+          (identifier)
+          (token_tree
+            (identifier))))
+      (function_signature_item
+        (identifier)
+        (parameters))
+      (function_signature_item
+        (identifier)
+        (parameters))
+      (function_signature_item
+        (identifier)
+        (parameters
+          (parameter
+            (identifier)
+            (type_identifier))))
+      (function_signature_item
+        (identifier)
+        (parameters
+          (parameter
+            (identifier)
+            (type_identifier)))))))

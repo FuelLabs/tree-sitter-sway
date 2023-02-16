@@ -284,6 +284,10 @@
         "named": true
       },
       {
+        "type": "deref_pattern",
+        "named": true
+      },
+      {
         "type": "identifier",
         "named": true
       },
@@ -1437,6 +1441,21 @@
       "types": [
         {
           "type": "visibility_modifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "deref_pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_pattern",
           "named": true
         }
       ]
@@ -4476,6 +4495,10 @@
   },
   {
     "type": "dep",
+    "named": false
+  },
+  {
+    "type": "deref",
     "named": false
   },
   {

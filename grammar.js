@@ -174,9 +174,7 @@ module.exports = grammar({
 
 
     // TODO:
-    // asm
     // contract
-    // deref
     // library
     // predicate
 
@@ -1165,6 +1163,7 @@ module.exports = grammar({
       $.struct_pattern,
       $._reserved_identifier,
       $.ref_pattern,
+      $.deref_pattern,
       $.slice_pattern,
       $.captured_pattern,
       $.reference_pattern,
@@ -1213,7 +1212,7 @@ module.exports = grammar({
     ),
 
     field_pattern: $ => seq(
-      optional('ref'),
+      optional(choice('ref', 'deref')),
       optional($.mutable_specifier),
       choice(
         field('name', alias($.identifier, $.shorthand_field_identifier)),
@@ -1246,6 +1245,11 @@ module.exports = grammar({
 
     ref_pattern: $ => seq(
       'ref',
+      $._pattern
+    ),
+
+    deref_pattern: $ => seq(
+      'deref',
       $._pattern
     ),
 
@@ -1335,13 +1339,6 @@ module.exports = grammar({
       )),
 
     boolean_literal: $ => choice('true', 'false'),
-
-    asm_literal: $ => seq(
-      repeat(seq(
-        $._string_content,
-        ';'
-      )),
-    ),
 
     comment: $ => choice(
       $.line_comment,

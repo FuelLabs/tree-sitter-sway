@@ -38,6 +38,12 @@ match x {
   & mut  z => z,
 }
 
+match x {
+  A(deref x) => x.0,
+  deref mut y => y,
+  & mut  z => z,
+}
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -66,7 +72,33 @@ match x {
             (reference_pattern
               (mutable_specifier)
               (identifier)))
-          (identifier))))))
+          (identifier)))))
+  (expression_statement
+    (match_expression
+      (identifier)
+      (match_block
+        (match_arm
+          (match_pattern
+            (tuple_struct_pattern
+              (identifier)
+              (deref_pattern
+                (identifier))))
+          (field_expression
+            (identifier)
+            (integer_literal)))
+        (match_arm
+          (match_pattern
+            (deref_pattern
+              (mut_pattern
+                (mutable_specifier)
+                (identifier))))
+          (identifier))
+        (match_arm
+          (match_pattern
+            (reference_pattern
+              (mutable_specifier)
+              (identifier)))
+          (identifier))))))          
 
 ================================================================================
 Struct patterns

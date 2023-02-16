@@ -3360,10 +3360,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "dynamic_type"
-        },
-        {
-          "type": "SYMBOL",
           "name": "bounded_type"
         },
         {
@@ -4028,40 +4024,6 @@
         {
           "type": "STRING",
           "value": "impl"
-        },
-        {
-          "type": "FIELD",
-          "name": "trait",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_type_identifier"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "scoped_type_identifier"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "generic_type"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "function_type"
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "dynamic_type": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "dyn"
         },
         {
           "type": "FIELD",

@@ -354,10 +354,6 @@
         "named": true
       },
       {
-        "type": "dynamic_type",
-        "named": true
-      },
-      {
         "type": "empty_type",
         "named": true
       },
@@ -1463,34 +1459,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "dynamic_type",
-    "named": true,
-    "fields": {
-      "trait": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "function_type",
-            "named": true
-          },
-          {
-            "type": "generic_type",
-            "named": true
-          },
-          {
-            "type": "scoped_type_identifier",
-            "named": true
-          },
-          {
-            "type": "type_identifier",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -4527,10 +4495,6 @@
   },
   {
     "type": "deref",
-    "named": false
-  },
-  {
-    "type": "dyn",
     "named": false
   },
   {

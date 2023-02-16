@@ -609,7 +609,6 @@ module.exports = grammar({
       $.function_type,
       $._type_identifier,
       $.empty_type,
-      $.dynamic_type,
       $.bounded_type,
       alias(choice(...primitive_types), $.primitive_type)
     ),
@@ -729,16 +728,6 @@ module.exports = grammar({
 
     abstract_type: $ => seq(
       'impl',
-      field('trait', choice(
-        $._type_identifier,
-        $.scoped_type_identifier,
-        $.generic_type,
-        $.function_type
-      ))
-    ),
-
-    dynamic_type: $ => seq(
-      'dyn',
       field('trait', choice(
         $._type_identifier,
         $.scoped_type_identifier,

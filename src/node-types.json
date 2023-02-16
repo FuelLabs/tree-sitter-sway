@@ -1544,20 +1544,6 @@
     "type": "enum_variant",
     "named": true,
     "fields": {
-      "body": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "field_declaration_list",
-            "named": true
-          },
-          {
-            "type": "ordered_field_declaration_list",
-            "named": true
-          }
-        ]
-      },
       "name": {
         "multiple": false,
         "required": true,
@@ -1573,7 +1559,7 @@
         "required": false,
         "types": [
           {
-            "type": "_expression",
+            "type": "_type",
             "named": true
           }
         ]

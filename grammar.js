@@ -98,6 +98,7 @@ module.exports = grammar({
     ),
 
     _declaration_statement: $ => choice(
+      $.asm_item,
       $.const_item,
       $.empty_statement,
       $.attribute_item,
@@ -333,6 +334,12 @@ module.exports = grammar({
       ';'
     ),
 
+    asm_item: $ => seq(
+      'asm',
+      field('parameters', $.asm_parameters),
+      field('body', $.asm_block),
+    ),
+
     function_item: $ => seq(
       optional($.visibility_modifier),
       optional($.function_modifiers),
@@ -560,6 +567,23 @@ module.exports = grammar({
       ':',
       field('type', $._type)
     ),
+
+    asm_parameters: $ => seq(
+      '(',
+      sepBy(',', seq(
+        choice(
+          $.asm_parameter,
+        ))),
+      optional(','),
+      ')'
+    ),
+
+    asm_parameter: $ => seq(
+      field('pattern', choice(
+        $._pattern,
+      )),
+      optional(seq(':', field('type', choice($._type, $._literal, $.self)))),
+    ),    
 
     visibility_modifier: $ => prec.right(
       seq(
@@ -1119,6 +1143,16 @@ module.exports = grammar({
       '}'
     ),
 
+    asm_block: $ => prec.right(seq(
+      '{',
+      repeat(field('value', choice($.asm_op, $.asm_return))),
+      '}',
+      optional(';'),
+    )),
+
+    asm_op: $ => seq(sepBy(' ', $.identifier), ';'),
+    asm_return: $ => seq($.identifier, ":",  $.identifier),
+
     // Section - Patterns
 
     _pattern: $ => choice(
@@ -1301,6 +1335,13 @@ module.exports = grammar({
       )),
 
     boolean_literal: $ => choice('true', 'false'),
+
+    asm_literal: $ => seq(
+      repeat(seq(
+        $._string_content,
+        ';'
+      )),
+    ),
 
     comment: $ => choice(
       $.line_comment,

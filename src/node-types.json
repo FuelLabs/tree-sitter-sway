@@ -4,6 +4,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "asm_item",
+        "named": true
+      },
+      {
         "type": "attribute_item",
         "named": true
       },
@@ -522,6 +526,131 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "asm_block",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "asm_op",
+            "named": true
+          },
+          {
+            "type": "asm_return",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "asm_item",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "asm_block",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "asm_parameters",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "asm_op",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "asm_parameter",
+    "named": true,
+    "fields": {
+      "pattern": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_pattern",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_literal",
+            "named": true
+          },
+          {
+            "type": "_type",
+            "named": true
+          },
+          {
+            "type": "self",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "asm_parameters",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "asm_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "asm_return",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4106,6 +4235,10 @@
     }
   },
   {
+    "type": " ",
+    "named": false
+  },
+  {
     "type": "!",
     "named": false
   },
@@ -4303,6 +4436,10 @@
   },
   {
     "type": "as",
+    "named": false
+  },
+  {
+    "type": "asm",
     "named": false
   },
   {

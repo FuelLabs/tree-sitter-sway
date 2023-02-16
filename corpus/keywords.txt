@@ -276,3 +276,124 @@ abi IdentityExample {
           (parameter
             (identifier)
             (type_identifier)))))))
+
+================================================================================
+ASM
+================================================================================
+
+asm(r1: 0, r2: 0, r3, r4) {
+    move r1 r2;
+    move r2 r1;
+    move r3 r1;
+    move r4 r2;
+};
+
+impl Ord for u32 {
+    fn gt(self, other: Self) -> bool {
+        asm(r1: self, r2: other, r3) {
+            gt r3 r1 r2;
+            r3: bool
+        }
+    }
+    fn lt(self, other: Self) -> bool {
+        asm(r1: self, r2: other, r3) {
+            lt r3 r1 r2;
+            r3: bool
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (asm_item
+    (asm_parameters
+      (asm_parameter
+        (identifier)
+        (integer_literal))
+      (asm_parameter
+        (identifier)
+        (integer_literal))
+      (asm_parameter
+        (identifier))
+      (asm_parameter
+        (identifier)))
+    (asm_block
+      (asm_op
+        (identifier)
+        (identifier)
+    (identifier))
+      (asm_op
+        (identifier)
+        (identifier)
+        (identifier))
+      (asm_op
+        (identifier)
+        (identifier)
+        (identifier))
+      (asm_op
+        (identifier)
+        (identifier)
+        (identifier))))
+  (impl_item
+    (type_identifier)
+    (primitive_type)
+    (declaration_list
+      (function_item
+        (identifier)
+        (parameters
+          (self_parameter
+            (self))
+          (parameter
+            (identifier)
+            (type_identifier)))
+        (primitive_type)
+        (block
+          (asm_item
+            (asm_parameters
+              (asm_parameter
+                (identifier)
+                (self))
+              (asm_parameter
+                (identifier)
+                (type_identifier))
+              (asm_parameter
+                (identifier)))
+            (asm_block
+              (asm_op
+                (identifier)
+                (identifier)
+                (identifier)
+                (identifier))
+              (asm_return
+                (identifier)
+                (identifier))))))
+      (function_item
+        (identifier)
+        (parameters
+          (self_parameter
+            (self))
+          (parameter
+            (identifier)
+            (type_identifier)))
+        (primitive_type)
+        (block
+          (asm_item
+            (asm_parameters
+              (asm_parameter
+                (identifier)
+                (self))
+              (asm_parameter
+                (identifier)
+                (type_identifier))
+              (asm_parameter
+                (identifier)))
+            (asm_block
+              (asm_op
+                (identifier)
+                (identifier)
+                (identifier)
+                (identifier))
+              (asm_return
+                (identifier)
+                (identifier)))))))))

@@ -77,3 +77,100 @@ storage {
         (struct_expression
           (type_identifier)
           (field_initializer_list))))))
+
+================================================================================
+Configurable blocks
+================================================================================
+
+configurable {}
+
+configurable {
+    C0: bool = true,
+    C1: u64 = 42,
+    C2: b256 = 0x1111111111111111111111111111111111111111111111111111111111111111,
+    C3: MyStruct = MyStruct { x: 42, y: true },
+    C4: MyEnum = MyEnum::A(42),
+    C5: MyEnum = MyEnum::B(true),
+    C6: &str = "fuel",
+    C7: [u64; 4] = [1, 2, 3, 4],
+    C8: u64 = 0, // Unused - should not show up in the JSON file
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (configurable_item
+    (storage_content_list))
+      (configurable_item
+    (storage_content_list
+      (storage_content
+        (field_declaration
+          (field_identifier)
+          (primitive_type))
+        (boolean_literal))
+      (storage_content
+        (field_declaration
+          (field_identifier)
+          (primitive_type))
+        (integer_literal))
+      (storage_content
+        (field_declaration
+          (field_identifier)
+          (type_identifier))
+        (integer_literal))
+      (storage_content
+        (field_declaration
+          (field_identifier)
+          (type_identifier))
+        (struct_expression
+          (type_identifier)
+          (field_initializer_list
+            (field_initializer
+              (field_identifier)
+              (integer_literal))
+            (field_initializer
+              (field_identifier)
+              (boolean_literal)))))
+      (storage_content
+        (field_declaration
+          (field_identifier)
+          (type_identifier))
+        (call_expression
+          (scoped_identifier
+            (identifier)
+            (identifier))
+          (arguments
+            (integer_literal))))
+      (storage_content
+        (field_declaration
+          (field_identifier)
+          (type_identifier))
+        (call_expression
+          (scoped_identifier
+            (identifier)
+            (identifier))
+          (arguments
+            (boolean_literal))))
+      (storage_content
+        (field_declaration
+          (field_identifier)
+          (reference_type
+            (primitive_type)))
+        (string_literal))
+      (storage_content
+        (field_declaration
+          (field_identifier)
+          (array_type
+            (primitive_type)
+            (integer_literal)))
+        (array_expression
+          (integer_literal)
+          (integer_literal)
+          (integer_literal)
+          (integer_literal)))
+      (storage_content
+        (field_declaration
+          (field_identifier)
+          (primitive_type))
+        (integer_literal))
+      (line_comment))))

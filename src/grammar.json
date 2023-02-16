@@ -1007,31 +1007,6 @@
           }
         },
         {
-          "type": "FIELD",
-          "name": "body",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "field_declaration_list"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "ordered_field_declaration_list"
-                  }
-                ]
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        },
-        {
           "type": "CHOICE",
           "members": [
             {
@@ -1039,14 +1014,14 @@
               "members": [
                 {
                   "type": "STRING",
-                  "value": "="
+                  "value": ":"
                 },
                 {
                   "type": "FIELD",
                   "name": "value",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "_expression"
+                    "name": "_type"
                   }
                 }
               ]

@@ -239,13 +239,9 @@ module.exports = grammar({
     enum_variant: $ => seq(
       optional($.visibility_modifier),
       field('name', $.identifier),
-      field('body', optional(choice(
-        $.field_declaration_list,
-        $.ordered_field_declaration_list
-      ))),
       optional(seq(
-        '=',
-        field('value', $._expression)
+        ':',
+        field('value', $._type)
       ))
     ),
 

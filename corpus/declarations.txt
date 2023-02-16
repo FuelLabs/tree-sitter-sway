@@ -530,19 +530,14 @@ Enums
 
 pub enum Option<T> {
     None,
-    Some(T),
+    Some: T,
 }
 
-pub enum Node<T: Item> {
-    Internal {
-        children: Vec<Tree<T>>,
-        height: u16
-    },
+pub enum Node<T> {
+    Internal: Vec<T>,
     #[attribute1]
     #[attribute2]
-    Leaf {
-        value: T
-    }
+    Leaf: T,
 }
 
 --------------------------------------------------------------------------------
@@ -558,32 +553,19 @@ pub enum Node<T: Item> {
         (identifier))
       (enum_variant
         (identifier)
-        (ordered_field_declaration_list
-          (type_identifier)))))
+        (type_identifier))))
   (enum_item
     (visibility_modifier)
     (type_identifier)
     (type_parameters
-      (constrained_type_parameter
-        (type_identifier)
-        (trait_bounds
-          (type_identifier))))
+      (type_identifier))
     (enum_variant_list
       (enum_variant
         (identifier)
-        (field_declaration_list
-          (field_declaration
-            (field_identifier)
-            (generic_type
-              (type_identifier)
-              (type_arguments
-                (generic_type
-                  (type_identifier)
-                  (type_arguments
-                    (type_identifier))))))
-          (field_declaration
-            (field_identifier)
-            (primitive_type))))
+        (generic_type
+          (type_identifier)
+          (type_arguments
+            (type_identifier))))
       (attribute_item
         (attribute
           (identifier)))
@@ -592,33 +574,7 @@ pub enum Node<T: Item> {
           (identifier)))
       (enum_variant
         (identifier)
-        (field_declaration_list
-          (field_declaration
-            (field_identifier)
-            (type_identifier)))))))
-
-================================================================================
-Enums with values specified
-================================================================================
-
-pub enum c_style_enum {
-    val1 = 1,
-    val2 = 2
-}
-
---------------------------------------------------------------------------------
-
-(source_file
-  (enum_item
-    (visibility_modifier)
-    (type_identifier)
-    (enum_variant_list
-      (enum_variant
-        (identifier)
-        (integer_literal))
-      (enum_variant
-        (identifier)
-        (integer_literal)))))
+        (type_identifier)))))
 
 ================================================================================
 Generic functions

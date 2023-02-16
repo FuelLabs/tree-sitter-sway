@@ -767,7 +767,15 @@
           "named": true
         },
         {
+          "type": "configurable_item",
+          "named": true
+        },
+        {
           "type": "expression_statement",
+          "named": true
+        },
+        {
+          "type": "storage_item",
           "named": true
         }
       ]
@@ -1117,6 +1125,22 @@
         "types": [
           {
             "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "configurable_item",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "storage_content_list",
             "named": true
           }
         ]
@@ -3049,10 +3073,75 @@
           "named": true
         },
         {
+          "type": "configurable_item",
+          "named": true
+        },
+        {
           "type": "expression_statement",
+          "named": true
+        },
+        {
+          "type": "storage_item",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "storage_content",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "field_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "storage_content_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "storage_content",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "storage_item",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "storage_content_list",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -4291,6 +4380,10 @@
     "named": true
   },
   {
+    "type": "configurable",
+    "named": false
+  },
+  {
     "type": "const",
     "named": false
   },
@@ -4444,6 +4537,10 @@
   },
   {
     "type": "stmt",
+    "named": false
+  },
+  {
+    "type": "storage",
     "named": false
   },
   {

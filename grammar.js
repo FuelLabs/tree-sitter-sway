@@ -84,14 +84,16 @@ module.exports = grammar({
 
     _statement: $ => choice(
       $.expression_statement,
-      $._declaration_statement
+      $._declaration_statement,
+      $.configurable_item,
+      $.storage_item,
     ),
 
     empty_statement: $ => ';',
 
     expression_statement: $ => choice(
       seq($._expression, ';'),
-      prec(1, $._expression_ending_with_block)
+      prec(1, $._expression_ending_with_block),
     ),
 
     _declaration_statement: $ => choice(
@@ -165,8 +167,8 @@ module.exports = grammar({
       alias(choice(...primitive_types), $.primitive_type),
       /[/_\-=->,;:::!=?.@*&#%^+<>|~]+/,
       '\'',
-      'as', 'break', 'const', 'continue', 'default', 'dep', 'enum', 'fn', 'for', 'if', 'impl',
-      'let', 'match', 'pub', 'return', 'struct', 'trait', 'use', 'where', 'while'
+      'as', 'break', 'configurable', 'const', 'continue', 'default', 'dep', 'enum', 'fn', 'for', 'if', 'impl',
+      'let', 'match', 'pub', 'return', 'storage', 'struct', 'trait', 'use', 'where', 'while'
     ),
 
     // Section - Declarations
@@ -256,6 +258,29 @@ module.exports = grammar({
         '=',
         field('value', $._expression)
       ))
+    ),
+
+    configurable_item: $ => seq(
+      'configurable',
+      field('body', $.storage_content_list)
+    ),
+
+    storage_item: $ => seq(
+      'storage',
+      field('body', $.storage_content_list)
+    ),
+
+    storage_content_list: $ => seq(
+      '{',
+      sepBy(',', $.storage_content),
+      optional(','),
+      '}'
+    ),
+
+    storage_content: $ => seq(
+      $.field_declaration,
+      '=',
+      field('value', $._expression)
     ),
 
     field_declaration_list: $ => seq(

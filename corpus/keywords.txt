@@ -1,0 +1,79 @@
+================================================================================
+Storage blocks
+================================================================================
+
+storage {}
+
+storage {
+    balance: u64 = 0,
+    name: &str = "",
+    var1: Type1 = Type1 { x: 0, y: 0 },
+    var2: Type2 = Type2 {
+        w: 0x0000000000000000000000000000000000000000000000000000000000000000,
+        z: false,
+    },
+}
+
+storage {
+    // With comments
+    balances: StorageMap<Identity, u64> = StorageMap {},
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (storage_item
+    (storage_content_list))
+  (storage_item
+    (storage_content_list
+      (storage_content
+        (field_declaration
+          (field_identifier)
+          (primitive_type))
+        (integer_literal))
+      (storage_content
+        (field_declaration
+          (field_identifier)
+          (reference_type
+            (primitive_type)))
+        (string_literal))
+          (storage_content
+            (field_declaration
+              (field_identifier)
+              (type_identifier))
+            (struct_expression
+              (type_identifier)
+              (field_initializer_list
+                (field_initializer
+                  (field_identifier)
+                  (integer_literal))
+                (field_initializer
+                  (field_identifier)
+                  (integer_literal)))))
+          (storage_content
+            (field_declaration
+              (field_identifier)
+              (type_identifier))
+            (struct_expression
+              (type_identifier)
+              (field_initializer_list
+                (field_initializer
+                  (field_identifier)
+                  (integer_literal))
+                (field_initializer
+                  (field_identifier)
+                  (boolean_literal)))))))
+  (storage_item
+    (storage_content_list
+      (line_comment)
+      (storage_content
+        (field_declaration
+          (field_identifier)
+          (generic_type
+            (type_identifier)
+            (type_arguments
+              (type_identifier)
+              (primitive_type))))
+        (struct_expression
+          (type_identifier)
+          (field_initializer_list))))))

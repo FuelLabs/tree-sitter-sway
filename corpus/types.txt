@@ -266,3 +266,18 @@ d as *mut E<<F as E>::G>;
                   (type_identifier)
                   (type_identifier)))
               (type_identifier))))))))
+
+================================================================================
+Sized string types
+================================================================================
+
+let bar: str[4] = "sway";
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (let_declaration
+    (identifier)
+    (primitive_type
+      (integer_literal))
+    (string_literal)))

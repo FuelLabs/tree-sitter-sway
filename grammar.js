@@ -34,8 +34,6 @@ const numeric_types = [
   'f64'
 ]
 
-const primitive_types = numeric_types.concat(['bool', 'str', 'char'])
-
 module.exports = grammar({
   name: 'sway',
 
@@ -92,6 +90,13 @@ module.exports = grammar({
     ),
 
     empty_statement: $ => ';',
+
+    primitive_type: $ => choice(
+      ...numeric_types, 
+      'bool', 
+      'char', 
+      prec.right(seq('str', optional(seq('[', $.integer_literal, ']'))))
+    ),
 
     program_type: $ => seq(
       choice('contract', 'script', 'predicate', 'library'), optional(seq(' ', field('name', $._pattern))), ';',
@@ -153,7 +158,7 @@ module.exports = grammar({
     // with $).
     _non_special_token: $ => choice(
       $._literal, $.identifier, $.mutable_specifier, $.self,
-      alias(choice(...primitive_types), $.primitive_type),
+      $.primitive_type,
       /[/_\-=->,;:::!=?.@*&#%^+<>|~]+/,
       '\'',
       'abi', 'as', 'break', 'configurable', 'const', 'continue', 'default', 'dep', 'enum', 'fn', 'for', 'if', 'impl',
@@ -357,7 +362,7 @@ module.exports = grammar({
         $.pointer_type,
         $.tuple_type,
         $.higher_ranked_trait_bound,
-        alias(choice(...primitive_types), $.primitive_type)
+        $.primitive_type,
       )),
       field('bounds', $.trait_bounds)
     ),
@@ -588,7 +593,7 @@ module.exports = grammar({
       $._type_identifier,
       $.empty_type,
       $.bounded_type,
-      alias(choice(...primitive_types), $.primitive_type)
+      $.primitive_type,
     ),
 
     bracketed_type: $ => seq(
@@ -732,7 +737,7 @@ module.exports = grammar({
       $.yield_expression,
       $._literal,
       prec.left($.identifier),
-      alias(choice(...primitive_types), $.identifier),
+      alias($.primitive_type, $.identifier),
       prec.left($._reserved_identifier),
       $.self,
       $.storage,
@@ -1126,7 +1131,7 @@ module.exports = grammar({
 
     _pattern: $ => choice(
       $._literal_pattern,
-      alias(choice(...primitive_types), $.identifier),
+      alias($.primitive_type, $.identifier),
       $.identifier,
       $.scoped_identifier,
       $.tuple_pattern,
@@ -1322,7 +1327,7 @@ module.exports = grammar({
 
     _path: $ => choice(
       $.self,
-      alias(choice(...primitive_types), $.identifier),
+      alias($.primitive_type, $.identifier),
       $.metavariable,
       $.identifier,
       $.scoped_identifier,

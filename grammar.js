@@ -731,6 +731,7 @@ module.exports = grammar({
       $.assignment_expression,
       $.compound_assignment_expr,
       $.type_cast_expression,
+      $.abi_call_expression,
       $.call_expression,
       $.abi_instance_expression,
       $.return_expression,
@@ -891,6 +892,12 @@ module.exports = grammar({
 
     call_expression: $ => prec(PREC.call, seq(
       field('function', $._expression_except_range),
+      field('arguments', $.arguments)
+    )),
+
+    abi_call_expression: $ => prec(PREC.call, seq(
+      field('function', $.field_expression),
+      field('initalizer', $.field_initializer_list),
       field('arguments', $.arguments)
     )),
 

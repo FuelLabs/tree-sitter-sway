@@ -3858,6 +3858,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "abi_call_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "call_expression"
         },
         {
@@ -4969,6 +4973,39 @@
             "content": {
               "type": "SYMBOL",
               "name": "_expression_except_range"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "arguments",
+            "content": {
+              "type": "SYMBOL",
+              "name": "arguments"
+            }
+          }
+        ]
+      }
+    },
+    "abi_call_expression": {
+      "type": "PREC",
+      "value": 14,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "function",
+            "content": {
+              "type": "SYMBOL",
+              "name": "field_expression"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "initalizer",
+            "content": {
+              "type": "SYMBOL",
+              "name": "field_initializer_list"
             }
           },
           {

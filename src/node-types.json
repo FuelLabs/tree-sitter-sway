@@ -70,6 +70,10 @@
         "named": true
       },
       {
+        "type": "abi_call_expression",
+        "named": true
+      },
+      {
         "type": "abi_instance_expression",
         "named": true
       },
@@ -406,6 +410,42 @@
         "named": true
       }
     ]
+  },
+  {
+    "type": "abi_call_expression",
+    "named": true,
+    "fields": {
+      "arguments": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "arguments",
+            "named": true
+          }
+        ]
+      },
+      "function": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field_expression",
+            "named": true
+          }
+        ]
+      },
+      "initalizer": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field_initializer_list",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "abi_instance_expression",
@@ -1002,6 +1042,10 @@
         "types": [
           {
             "type": "_literal",
+            "named": true
+          },
+          {
+            "type": "abi_call_expression",
             "named": true
           },
           {

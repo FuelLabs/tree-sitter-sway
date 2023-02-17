@@ -207,6 +207,15 @@ abi IdentityExample {
 
 abi(TestAbi, 0x3dba0a4455b598b7655a7fb430883d96c9527ef275b49739e7b0ad12f8280eae).deposit(amount);
 
+caller.send_funds {
+    gas: 10000,
+    asset_id: ZERO_B256,
+}(amount_to_send, recipient_address);
+
+let number = balance_test_contract.get_42 {
+    gas: u64::max(),
+}();
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -287,7 +296,38 @@ abi(TestAbi, 0x3dba0a4455b598b7655a7fb430883d96c9527ef275b49739e7b0ad12f8280eae)
             (integer_literal)))
         (field_identifier))
       (arguments
-        (identifier)))))
+        (identifier))))
+  (expression_statement
+    (abi_call_expression
+      (field_expression
+        (identifier)
+        (field_identifier))
+      (field_initializer_list
+        (field_initializer
+          (field_identifier)
+          (integer_literal))
+        (field_initializer
+          (field_identifier)
+          (identifier)))
+      (arguments
+        (identifier)
+        (identifier))))
+  (let_declaration
+    (identifier)
+    (abi_call_expression
+      (field_expression
+        (identifier)
+        (field_identifier))
+      (field_initializer_list
+        (field_initializer
+          (field_identifier)
+          (call_expression
+            (scoped_identifier
+              (identifier)
+              (identifier))
+            (arguments))))
+      (arguments))))
+
 ================================================================================
 ASM
 ================================================================================

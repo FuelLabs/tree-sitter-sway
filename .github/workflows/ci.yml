@@ -45,4 +45,4 @@ jobs:
         with:
           node-version: 14
       - run: npm install
-      - run: npm run test-examples
+      - run: ./scripts/parse-and-check.sh

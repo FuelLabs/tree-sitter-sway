@@ -165,7 +165,7 @@ module.exports = grammar({
     attribute_item: $ => seq(
       '#',
       '[',
-      $.attribute,
+      sepBy(',', $.attribute),
       ']'
     ),
 
@@ -297,8 +297,7 @@ module.exports = grammar({
       optional($.visibility_modifier),
       'const',
       field('name', $.identifier),
-      ':',
-      field('type', $._type),
+      optional(seq(':', field('type', $._type))),
       optional(
         seq(
           '=',

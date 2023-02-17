@@ -721,6 +721,8 @@ trait Foo {
     const X: u8;
 }
 
+const OWNER_ADDRESS = Address::from(0x8900c5bec4ca97d4febf9ceb4754a60d782abbf3cd815836c1872116f203f861);
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -733,7 +735,15 @@ trait Foo {
     (declaration_list
       (const_item
         (identifier)
-        (primitive_type)))))
+        (primitive_type))))
+  (const_item
+    (identifier)
+    (call_expression
+      (scoped_identifier
+        (identifier)
+        (identifier))
+      (arguments
+        (integer_literal)))))
 
 ================================================================================
 Empty statements
@@ -771,6 +781,11 @@ dep macos_only {}
 #![allow(clippy::useless_transmute)]
 
 #[clippy::cyclomatic_complexity = "100"]
+
+#[payable, storage(read, write)]
+fn receive_funds() {
+    // Do something
+}
 
 --------------------------------------------------------------------------------
 
@@ -817,7 +832,20 @@ dep macos_only {}
       (scoped_identifier
         path: (identifier)
         name: (identifier))
-      value: (string_literal))))
+      value: (string_literal)))
+  (attribute_item
+    (attribute
+      (identifier))
+    (attribute
+      (identifier)
+      arguments: (token_tree
+        (identifier)
+        (identifier))))
+  (function_item
+    name: (identifier)
+    parameters: (parameters)
+    body: (block
+      (line_comment))))
 
 ================================================================================
 Inner attributes

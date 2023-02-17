@@ -493,6 +493,10 @@ if foo && bar {}
 
 if foo && bar || baz {}
 
+if msg_asset_id() == BASE_ASSET_ID {
+    storage.balance += msg_amount();
+}
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -538,7 +542,22 @@ if foo && bar || baz {}
           left: (identifier)
           right: (identifier))
         right: (identifier))
-      consequence: (block))))
+      consequence: (block)))
+  (expression_statement
+    (if_expression
+      condition: (binary_expression
+        left: (call_expression
+          function: (identifier)
+          arguments: (arguments))
+        right: (identifier))
+      consequence: (block
+        (expression_statement
+          (compound_assignment_expr
+            left: (storage
+              (identifier))
+            right: (call_expression
+              function: (identifier)
+              arguments: (arguments))))))))
 
 ================================================================================
 Basic if let expressions

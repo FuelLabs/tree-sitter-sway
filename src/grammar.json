@@ -4053,6 +4053,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "storage"
+        },
+        {
+          "type": "SYMBOL",
           "name": "scoped_identifier"
         },
         {
@@ -7740,6 +7744,23 @@
     "self": {
       "type": "STRING",
       "value": "self"
+    },
+    "storage": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "storage"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
     },
     "metavariable": {
       "type": "PATTERN",

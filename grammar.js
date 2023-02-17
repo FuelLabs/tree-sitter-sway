@@ -735,6 +735,7 @@ module.exports = grammar({
       alias(choice(...primitive_types), $.identifier),
       prec.left($._reserved_identifier),
       $.self,
+      $.storage,
       $.scoped_identifier,
       $.generic_function,
       $.field_expression,
@@ -1336,6 +1337,8 @@ module.exports = grammar({
     _field_identifier: $ => alias($.identifier, $.field_identifier),
 
     self: $ => 'self',
+
+    storage: $ => seq('storage', '.', $.identifier),
 
     metavariable: $ => /\$[a-zA-Z_]\w*/
   }

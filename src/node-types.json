@@ -170,6 +170,10 @@
         "named": true
       },
       {
+        "type": "storage",
+        "named": true
+      },
+      {
         "type": "struct_expression",
         "named": true
       },
@@ -1094,6 +1098,10 @@
           },
           {
             "type": "self",
+            "named": true
+          },
+          {
+            "type": "storage",
             "named": true
           },
           {
@@ -3206,6 +3214,21 @@
         },
         {
           "type": "storage_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "storage",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]

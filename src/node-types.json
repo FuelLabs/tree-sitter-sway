@@ -1457,9 +1457,13 @@
         ]
       },
       "name": {
-        "multiple": false,
-        "required": true,
+        "multiple": true,
+        "required": false,
         "types": [
+          {
+            "type": "/",
+            "named": false
+          },
           {
             "type": "identifier",
             "named": true

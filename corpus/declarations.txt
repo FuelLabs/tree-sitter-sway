@@ -11,6 +11,8 @@ dep english {
     dep farewells {}
 }
 
+dep bar/baz;
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -27,7 +29,10 @@ dep english {
         (declaration_list))
       (dep_item
         (identifier)
-        (declaration_list)))))
+        (declaration_list))))
+  (dep_item
+    (identifier)
+    (identifier)))
 
 ================================================================================
 Function declarations

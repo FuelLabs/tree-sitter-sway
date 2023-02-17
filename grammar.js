@@ -188,7 +188,7 @@ module.exports = grammar({
     dep_item: $ => seq(
       optional($.visibility_modifier),
       'dep',
-      field('name', $.identifier),
+      field('name', sepBy('/', $.identifier)),
       choice(
         ';',
         field('body', $.declaration_list)

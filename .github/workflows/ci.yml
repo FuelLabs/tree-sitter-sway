@@ -33,7 +33,7 @@ jobs:
       - run: npm test
 
   test_examples:
-    name: Test parsing exmaples from the sway repo
+    name: Test parsing examples from the sway repo
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -46,4 +46,5 @@ jobs:
         with:
           node-version: 14
       - run: npm install
-      - run: ./scripts/parse-and-check.sh
+      - name: 'Parse and check for errors'
+        run: ./scripts/parse-and-check.sh

@@ -728,6 +728,7 @@ module.exports = grammar({
       $.compound_assignment_expr,
       $.type_cast_expression,
       $.call_expression,
+      $.abi_call_expression,
       $.return_expression,
       $.yield_expression,
       $._literal,
@@ -885,6 +886,11 @@ module.exports = grammar({
 
     call_expression: $ => prec(PREC.call, seq(
       field('function', $._expression_except_range),
+      field('arguments', $.arguments)
+    )),
+
+    abi_call_expression: $ => prec(PREC.call, seq(
+      'abi',
       field('arguments', $.arguments)
     )),
 

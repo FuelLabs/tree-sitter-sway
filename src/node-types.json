@@ -70,6 +70,10 @@
         "named": true
       },
       {
+        "type": "abi_call_expression",
+        "named": true
+      },
+      {
         "type": "array_expression",
         "named": true
       },
@@ -398,6 +402,22 @@
         "named": true
       }
     ]
+  },
+  {
+    "type": "abi_call_expression",
+    "named": true,
+    "fields": {
+      "arguments": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "arguments",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "abi_item",
@@ -978,6 +998,10 @@
         "types": [
           {
             "type": "_literal",
+            "named": true
+          },
+          {
+            "type": "abi_call_expression",
             "named": true
           },
           {

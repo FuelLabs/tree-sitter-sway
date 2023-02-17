@@ -48,4 +48,3 @@ jobs:
       - run: npm install
       - name: 'Parse and check for errors'
         run: ./scripts/parse-and-check.sh
-      - run: node_modules/.bin/tree-sitter parse sway/test/src/e2e_vm_tests/test_programs/should_pass//static_analysis/cei_pattern_violation_in_if_statement-2/src/main.sw

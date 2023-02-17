@@ -3897,6 +3897,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "abi_call_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "return_expression"
         },
         {
@@ -5066,6 +5070,27 @@
               "type": "SYMBOL",
               "name": "_expression_except_range"
             }
+          },
+          {
+            "type": "FIELD",
+            "name": "arguments",
+            "content": {
+              "type": "SYMBOL",
+              "name": "arguments"
+            }
+          }
+        ]
+      }
+    },
+    "abi_call_expression": {
+      "type": "PREC",
+      "value": 14,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "abi"
           },
           {
             "type": "FIELD",

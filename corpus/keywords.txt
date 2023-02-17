@@ -205,6 +205,8 @@ abi IdentityExample {
     fn identity_to_contract_id(my_identity: Identity);
 }
 
+abi(TestAbi, 0x3dba0a4455b598b7655a7fb430883d96c9527ef275b49739e7b0ad12f8280eae).deposit(amount);
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -275,8 +277,17 @@ abi IdentityExample {
         (parameters
           (parameter
             (identifier)
-            (type_identifier)))))))
-
+            (type_identifier))))))
+  (expression_statement
+    (call_expression
+      (field_expression
+        (abi_call_expression
+          (arguments
+            (identifier)
+            (integer_literal)))
+        (field_identifier))
+      (arguments
+        (identifier)))))
 ================================================================================
 ASM
 ================================================================================

@@ -728,6 +728,7 @@ module.exports = grammar({
       $.type_cast_expression,
       $.call_expression,
       $.abi_call_expression,
+      $.abi_instance_expression,
       $.return_expression,
       $.yield_expression,
       $._literal,
@@ -890,6 +891,12 @@ module.exports = grammar({
     )),
 
     abi_call_expression: $ => prec(PREC.call, seq(
+      field('function', $._expression_except_range),
+      field('initalizer', $.field_initializer_list),
+      field('arguments', $.arguments)
+    )),
+
+    abi_instance_expression: $ => prec(PREC.call, seq(
       'abi',
       field('arguments', $.arguments)
     )),
@@ -1105,12 +1112,13 @@ module.exports = grammar({
       ))
     )),
 
-    block: $ => seq(
+    block: $ => prec.right(seq(
       '{',
       repeat($._statement),
       optional($._expression),
-      '}'
-    ),
+      '}',
+      optional($.arguments),
+    )),
 
     asm_block: $ => prec.right(seq(
       '{',

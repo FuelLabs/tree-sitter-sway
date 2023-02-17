@@ -376,19 +376,16 @@ asm(r1: a, r2: ZERO_B256) {
         (asm_parameter
           (identifier)))
       (asm_block
-        (asm_op
+        (asm_content
           (identifier)
           (identifier)
-          (identifier))
-        (asm_op
           (identifier)
           (identifier)
-          (identifier))
-        (asm_op
           (identifier)
           (identifier)
-          (identifier))
-        (asm_op
+          (identifier)
+          (identifier)
+          (identifier)
           (identifier)
           (identifier)
           (identifier)))))
@@ -417,14 +414,13 @@ asm(r1: a, r2: ZERO_B256) {
               (asm_parameter
                 (identifier)))
             (asm_block
-              (asm_op
+              (asm_content
                 (identifier)
                 (identifier)
                 (identifier)
-                (identifier))
-              (asm_return
                 (identifier)
-                (identifier))))))
+                (identifier)
+                (primitive_type))))))                
       (function_item
         (identifier)
         (parameters
@@ -446,14 +442,13 @@ asm(r1: a, r2: ZERO_B256) {
               (asm_parameter
                 (identifier)))
             (asm_block
-              (asm_op
+              (asm_content
                 (identifier)
                 (identifier)
                 (identifier)
-                (identifier))
-              (asm_return
                 (identifier)
-                    (identifier))))))))
+                (identifier)
+                (primitive_type))))))))
   (expression_statement
     (asm_expression
       (asm_parameters
@@ -464,13 +459,12 @@ asm(r1: a, r2: ZERO_B256) {
           (identifier)
           (type_identifier)))
       (asm_block
-        (asm_op
+        (asm_content
           (identifier)
           (identifier)
           (identifier)
           (identifier)
-          (identifier))
-        (asm_return
+          (identifier)
           (identifier))))))
 
 ================================================================================

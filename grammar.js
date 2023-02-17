@@ -529,7 +529,7 @@ module.exports = grammar({
     ),
 
     self_parameter: $ => seq(
-      optional('&'),
+      optional(choice('&', 'ref')),
       optional($.mutable_specifier),
       $.self
     ),

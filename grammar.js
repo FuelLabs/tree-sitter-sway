@@ -1128,12 +1128,18 @@ module.exports = grammar({
 
     asm_block: $ => prec.right(seq(
       '{',
-      repeat(field('value', choice($.asm_op, $.asm_return))),
+      repeat(field('value', $.asm_content)),
       '}',
     )),
 
-    asm_op: $ => prec.left(seq(sepBy(' ', $.identifier), ';')),
-    asm_return: $ => prec.right(seq($.identifier, optional(seq(":",  $.identifier)))),
+    asm_content: $ => prec.right(seq(
+      repeat1(seq(
+        $.identifier, 
+        optional(
+          seq(':', choice($._type, $.self))),
+        optional(';'),
+      )),
+    )),
 
     // Section - Patterns
 

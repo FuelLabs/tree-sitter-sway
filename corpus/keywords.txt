@@ -484,6 +484,14 @@ let balance = asm(token_bal, token: BASE_ASSET_ID, id: balance_test_contract_id)
 
 assert(foo_ptr == asm(r1: foo) { r1: raw_ptr });
 
+fn get_gas() -> GasCounts {
+    GasCounts {
+        global_gas: asm() {
+            ggas
+        }
+    }
+}
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -500,14 +508,13 @@ assert(foo_ptr == asm(r1: foo) { r1: raw_ptr });
           (identifier)
           (type_identifier)))
       (asm_block
-        (asm_op
+        (asm_content
           (identifier)
           (identifier)
           (identifier)
-          (identifier))
-        (asm_return
           (identifier)
-          (identifier)))))
+          (identifier)
+          (primitive_type)))))
   (expression_statement
     (call_expression
       (identifier)
@@ -520,9 +527,24 @@ assert(foo_ptr == asm(r1: foo) { r1: raw_ptr });
                 (identifier)
                 (type_identifier)))
             (asm_block
-              (asm_return
+              (asm_content
                 (identifier)
-                (identifier)))))))))
+                (type_identifier))))))))
+  (function_item
+    (identifier)
+    (parameters)
+    (type_identifier)
+    (block
+      (struct_expression
+        (type_identifier)
+        (field_initializer_list
+          (field_initializer
+            (field_identifier)
+            (asm_expression
+              (asm_parameters)
+              (asm_block
+                (asm_content
+                  (identifier))))))))))
 
 ================================================================================
 Program Type

@@ -82,6 +82,10 @@
         "named": true
       },
       {
+        "type": "asm_expression",
+        "named": true
+      },
+      {
         "type": "assignment_expression",
         "named": true
       },
@@ -613,6 +617,32 @@
     }
   },
   {
+    "type": "asm_expression",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "asm_block",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "asm_parameters",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "asm_item",
     "named": true,
     "fields": {
@@ -1054,6 +1084,10 @@
           },
           {
             "type": "array_expression",
+            "named": true
+          },
+          {
+            "type": "asm_expression",
             "named": true
           },
           {
@@ -2488,10 +2522,6 @@
         "types": [
           {
             "type": "_expression",
-            "named": true
-          },
-          {
-            "type": "asm_item",
             "named": true
           }
         ]

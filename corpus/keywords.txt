@@ -329,7 +329,7 @@ let number = balance_test_contract.get_42 {
       (arguments))))
 
 ================================================================================
-ASM
+ASM blocks
 ================================================================================
 
 asm(r1: 0, r2: 0, r3, r4) {
@@ -359,44 +359,39 @@ asm(r1: a, r2: ZERO_B256) {
     zero
 };
 
-let balance = asm(token_bal, token: BASE_ASSET_ID, id: balance_test_contract_id) {
-    bal  token_bal token id;
-    token_bal: u64
-};
-
 --------------------------------------------------------------------------------
 
 (source_file
-  (asm_item
-    (asm_parameters
-      (asm_parameter
-        (identifier)
-        (integer_literal))
-      (asm_parameter
-        (identifier)
-        (integer_literal))
-      (asm_parameter
-        (identifier))
-      (asm_parameter
-        (identifier)))
-    (asm_block
-      (asm_op
-        (identifier)
-        (identifier)
-    (identifier))
-      (asm_op
-        (identifier)
-        (identifier)
-        (identifier))
-      (asm_op
-        (identifier)
-        (identifier)
-        (identifier))
-      (asm_op
-        (identifier)
-        (identifier)
-        (identifier))))
-  (empty_statement)
+  (expression_statement
+    (asm_expression
+      (asm_parameters
+        (asm_parameter
+          (identifier)
+          (integer_literal))
+        (asm_parameter
+          (identifier)
+          (integer_literal))
+        (asm_parameter
+          (identifier))
+        (asm_parameter
+          (identifier)))
+      (asm_block
+        (asm_op
+          (identifier)
+          (identifier)
+          (identifier))
+        (asm_op
+          (identifier)
+          (identifier)
+          (identifier))
+        (asm_op
+          (identifier)
+          (identifier)
+          (identifier))
+        (asm_op
+          (identifier)
+          (identifier)
+          (identifier)))))
   (impl_item
     (type_identifier)
     (primitive_type)
@@ -459,27 +454,42 @@ let balance = asm(token_bal, token: BASE_ASSET_ID, id: balance_test_contract_id)
               (asm_return
                 (identifier)
                     (identifier))))))))
-  (asm_item
-    (asm_parameters
-      (asm_parameter
-        (identifier)
-        (type_identifier))
-      (asm_parameter
-        (identifier)
-        (type_identifier)))
-    (asm_block
-      (asm_op
-        (identifier)
-        (identifier)
-        (identifier)
-        (identifier)
-        (identifier))
-      (asm_return
-        (identifier))))
-  (empty_statement)
+  (expression_statement
+    (asm_expression
+      (asm_parameters
+        (asm_parameter
+          (identifier)
+          (type_identifier))
+        (asm_parameter
+          (identifier)
+          (type_identifier)))
+      (asm_block
+        (asm_op
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier))
+        (asm_return
+          (identifier))))))
+
+================================================================================
+ASM expressions
+================================================================================
+
+let balance = asm(token_bal, token: BASE_ASSET_ID, id: balance_test_contract_id) {
+    bal  token_bal token id;
+    token_bal: u64
+};
+
+assert(foo_ptr == asm(r1: foo) { r1: raw_ptr });
+
+--------------------------------------------------------------------------------
+
+(source_file
   (let_declaration
     (identifier)
-    (asm_item
+    (asm_expression
       (asm_parameters
         (asm_parameter
           (identifier))
@@ -497,7 +507,22 @@ let balance = asm(token_bal, token: BASE_ASSET_ID, id: balance_test_contract_id)
           (identifier))
         (asm_return
           (identifier)
-          (identifier))))))        
+          (identifier)))))
+  (expression_statement
+    (call_expression
+      (identifier)
+      (arguments
+        (binary_expression
+          (identifier)
+          (asm_expression
+            (asm_parameters
+              (asm_parameter
+                (identifier)
+                (type_identifier)))
+            (asm_block
+              (asm_return
+                (identifier)
+                (identifier)))))))))
 
 ================================================================================
 Program Type
@@ -519,3 +544,4 @@ library my_lib;
   (program_type)
   (program_type
     (identifier)))
+

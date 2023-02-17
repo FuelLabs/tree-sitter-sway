@@ -2483,10 +2483,6 @@
                       {
                         "type": "SYMBOL",
                         "name": "_expression"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "asm_item"
                       }
                     ]
                   }
@@ -3868,6 +3864,15 @@
         {
           "type": "SYMBOL",
           "name": "abi_call_expression"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "asm_item"
+          },
+          "named": true,
+          "value": "asm_expression"
         },
         {
           "type": "SYMBOL",
@@ -7572,6 +7577,10 @@
     [
       "parameters",
       "tuple_struct_pattern"
+    ],
+    [
+      "_expression_except_range",
+      "_statement"
     ]
   ],
   "precedences": [],

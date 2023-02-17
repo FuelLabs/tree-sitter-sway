@@ -73,6 +73,7 @@ module.exports = grammar({
     [$.scoped_identifier, $.scoped_type_identifier],
     [$.parameters, $._pattern],
     [$.parameters, $.tuple_struct_pattern],
+    [$._expression_except_range, $._statement],
   ],
 
   word: $ => $.identifier,
@@ -463,7 +464,7 @@ module.exports = grammar({
       )),
       optional(seq(
         '=',
-        field('value', choice($._expression, $.asm_item))
+        field('value', choice($._expression))
       )),
       optional(seq(
         'else',
@@ -732,6 +733,7 @@ module.exports = grammar({
       $.compound_assignment_expr,
       $.type_cast_expression,
       $.abi_call_expression,
+      alias($.asm_item, $.asm_expression),
       $.call_expression,
       $.abi_instance_expression,
       $.return_expression,

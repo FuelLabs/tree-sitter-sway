@@ -3939,7 +3939,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "abi_call_expression"
+          "name": "abi_instance_expression"
         },
         {
           "type": "SYMBOL",
@@ -5128,7 +5128,7 @@
         ]
       }
     },
-    "abi_call_expression": {
+    "abi_instance_expression": {
       "type": "PREC",
       "value": 14,
       "content": {

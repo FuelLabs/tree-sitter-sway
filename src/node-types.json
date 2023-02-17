@@ -70,7 +70,7 @@
         "named": true
       },
       {
-        "type": "abi_call_expression",
+        "type": "abi_instance_expression",
         "named": true
       },
       {
@@ -408,7 +408,7 @@
     ]
   },
   {
-    "type": "abi_call_expression",
+    "type": "abi_instance_expression",
     "named": true,
     "fields": {
       "arguments": {
@@ -1005,7 +1005,7 @@
             "named": true
           },
           {
-            "type": "abi_call_expression",
+            "type": "abi_instance_expression",
             "named": true
           },
           {

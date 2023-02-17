@@ -314,6 +314,11 @@ impl Ord for u32 {
     }
 }
 
+asm(r1: a, r2: ZERO_B256) {
+    log r1 r2 zero zero;
+    zero
+};
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -407,7 +412,24 @@ impl Ord for u32 {
                 (identifier))
               (asm_return
                 (identifier)
-                (identifier)))))))))
+                    (identifier))))))))
+  (asm_item
+    (asm_parameters
+      (asm_parameter
+        (identifier)
+        (type_identifier))
+      (asm_parameter
+        (identifier)
+        (type_identifier)))
+    (asm_block
+      (asm_op
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier))
+      (asm_return
+        (identifier)))))
 
 ================================================================================
 Program Type

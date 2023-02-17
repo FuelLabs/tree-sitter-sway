@@ -1124,8 +1124,8 @@ module.exports = grammar({
       optional(';'),
     )),
 
-    asm_op: $ => seq(sepBy(' ', $.identifier), ';'),
-    asm_return: $ => seq($.identifier, ":",  $.identifier),
+    asm_op: $ => prec.left(seq(sepBy(' ', $.identifier), ';')),
+    asm_return: $ => prec.right(seq($.identifier, optional(seq(":",  $.identifier)))),
 
     // Section - Patterns
 

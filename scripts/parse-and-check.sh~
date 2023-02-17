@@ -1,0 +1,30 @@
+#!/bin/bash
+
+FILES=$(find $HOME/Development/sway/test/src/e2e_vm_tests/test_programs/should_pass/ -type f -name "*.sw")
+declare -a failures=()
+declare -a successes=()
+for f in $FILES
+do
+    if tree-sitter parse $f "1" 2> /dev/null | grep -q ERROR; then
+	#echo "Parsing error in $f"
+	#echo "parsing error ${#failures[@]}"
+	failures[${#failures[@]}]=$f
+	#failures+=($f)
+    else
+        successes[${#successes[@]}]=$f
+	#successes+=($f)
+    fi
+done
+
+for fail in ${failures[@]}
+do
+    echo "Failed to parse $fail"
+done
+
+echo "${#successes[@]} passed, ${#failures[@]} failed\n"
+
+if [ -n "$failures" ]; then
+    exit 1
+else
+    exit 0
+fi

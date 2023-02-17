@@ -31,3 +31,18 @@ jobs:
           node-version: 14
       - run: npm install
       - run: npm test
+
+  test_examples:
+    name: Test parsing exmaples from the sway repo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Sway repo
+        uses: actions/checkout@v2
+        with:
+          repository: fuellabs/sway
+          path: sway
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - run: npm install
+      - run: npm test-examples

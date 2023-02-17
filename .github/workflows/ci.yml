@@ -36,6 +36,7 @@ jobs:
     name: Test parsing exmaples from the sway repo
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Checkout Sway repo
         uses: actions/checkout@v2
         with:

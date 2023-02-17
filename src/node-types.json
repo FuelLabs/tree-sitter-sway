@@ -2489,6 +2489,10 @@
           {
             "type": "_expression",
             "named": true
+          },
+          {
+            "type": "asm_item",
+            "named": true
           }
         ]
       }

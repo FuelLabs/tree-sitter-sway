@@ -463,7 +463,7 @@ module.exports = grammar({
       )),
       optional(seq(
         '=',
-        field('value', $._expression)
+        field('value', choice($._expression, $.asm_item))
       )),
       optional(seq(
         'else',
@@ -1128,7 +1128,6 @@ module.exports = grammar({
       '{',
       repeat(field('value', choice($.asm_op, $.asm_return))),
       '}',
-      optional(';'),
     )),
 
     asm_op: $ => prec.left(seq(sepBy(' ', $.identifier), ';')),

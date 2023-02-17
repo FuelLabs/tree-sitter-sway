@@ -359,6 +359,11 @@ asm(r1: a, r2: ZERO_B256) {
     zero
 };
 
+let balance = asm(token_bal, token: BASE_ASSET_ID, id: balance_test_contract_id) {
+    bal  token_bal token id;
+    token_bal: u64
+};
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -391,6 +396,7 @@ asm(r1: a, r2: ZERO_B256) {
         (identifier)
         (identifier)
         (identifier))))
+  (empty_statement)
   (impl_item
     (type_identifier)
     (primitive_type)
@@ -469,7 +475,29 @@ asm(r1: a, r2: ZERO_B256) {
         (identifier)
         (identifier))
       (asm_return
-        (identifier)))))
+        (identifier))))
+  (empty_statement)
+  (let_declaration
+    (identifier)
+    (asm_item
+      (asm_parameters
+        (asm_parameter
+          (identifier))
+        (asm_parameter
+          (identifier)
+          (type_identifier))
+        (asm_parameter
+          (identifier)
+          (type_identifier)))
+      (asm_block
+        (asm_op
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier))
+        (asm_return
+          (identifier)
+          (identifier))))))        
 
 ================================================================================
 Program Type

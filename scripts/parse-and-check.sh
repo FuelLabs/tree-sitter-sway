@@ -12,6 +12,11 @@ do
     fi
 done
 
+for success in ${successes[@]}
+do
+    echo "Successfully parsed $success"
+done
+
 for fail in ${failures[@]}
 do
     echo "Failed to parse $fail"

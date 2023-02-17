@@ -46,5 +46,6 @@ jobs:
           node-version: 14
       - run: npm install
       - run: pwd
+      - run: ls
       - run: echo "$HOME"
       - run: ./scripts/parse-and-check.sh

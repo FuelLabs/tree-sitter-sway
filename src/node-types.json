@@ -714,6 +714,10 @@
             "named": true
           },
           {
+            "type": "index_expression",
+            "named": true
+          },
+          {
             "type": "self",
             "named": true
           }

@@ -359,6 +359,10 @@ asm(r1: a, r2: ZERO_B256) {
     zero
 };
 
+asm(r1: (big_value.bytes)[0], r2) {
+    r2: bool
+};
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -465,7 +469,24 @@ asm(r1: a, r2: ZERO_B256) {
           (identifier)
           (identifier)
           (identifier)
-          (identifier))))))
+          (identifier)))))
+  (expression_statement
+    (asm_expression
+      (asm_parameters
+        (asm_parameter
+          (identifier)
+          (index_expression
+            (parenthesized_expression
+              (field_expression
+                (identifier)
+                (field_identifier)))
+            (integer_literal)))
+        (asm_parameter
+          (identifier)))
+      (asm_block
+        (asm_content
+          (identifier)
+          (primitive_type))))))
 
 ================================================================================
 ASM expressions

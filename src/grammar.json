@@ -3086,6 +3086,10 @@
                       {
                         "type": "SYMBOL",
                         "name": "self"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_expression"
                       }
                     ]
                   }
@@ -7537,8 +7541,16 @@
       "_pattern"
     ],
     [
+      "_type",
+      "_expression_except_range"
+    ],
+    [
       "unit_type",
       "tuple_pattern"
+    ],
+    [
+      "unit_type",
+      "unit_expression"
     ],
     [
       "scoped_identifier",

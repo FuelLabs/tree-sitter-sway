@@ -69,7 +69,9 @@ module.exports = grammar({
   conflicts: $ => [
     // Local ambiguity due to anonymous types:
     [$._type, $._pattern],
+    [$._type, $._expression_except_range],
     [$.unit_type, $.tuple_pattern],
+    [$.unit_type, $.unit_expression],
     [$.scoped_identifier, $.scoped_type_identifier],
     [$.parameters, $._pattern],
     [$.parameters, $.tuple_struct_pattern],
@@ -561,7 +563,10 @@ module.exports = grammar({
       field('pattern', choice(
         $._pattern,
       )),
-      optional(seq(':', field('type', choice($._type, $._literal, $.self)))),
+      optional(seq(
+        ':', 
+        field('type', choice($._type, $._literal, $.self, $.index_expression))
+      )),
     ),    
 
     visibility_modifier: $ => prec.right(

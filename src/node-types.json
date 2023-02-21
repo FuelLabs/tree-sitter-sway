@@ -70,7 +70,19 @@
         "named": true
       },
       {
+        "type": "abi_call_expression",
+        "named": true
+      },
+      {
+        "type": "abi_instance_expression",
+        "named": true
+      },
+      {
         "type": "array_expression",
+        "named": true
+      },
+      {
+        "type": "asm_expression",
         "named": true
       },
       {
@@ -163,6 +175,10 @@
       },
       {
         "type": "self",
+        "named": true
+      },
+      {
+        "type": "storage",
         "named": true
       },
       {
@@ -366,6 +382,10 @@
         "named": true
       },
       {
+        "type": "generic_type_with_turbofish",
+        "named": true
+      },
+      {
         "type": "metavariable",
         "named": true
       },
@@ -400,6 +420,58 @@
     ]
   },
   {
+    "type": "abi_call_expression",
+    "named": true,
+    "fields": {
+      "arguments": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "arguments",
+            "named": true
+          }
+        ]
+      },
+      "function": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field_expression",
+            "named": true
+          }
+        ]
+      },
+      "initalizer": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field_initializer_list",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "abi_instance_expression",
+    "named": true,
+    "fields": {
+      "arguments": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "arguments",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "abi_item",
     "named": true,
     "fields": {
@@ -409,6 +481,16 @@
         "types": [
           {
             "type": "declaration_list",
+            "named": true
+          }
+        ]
+      },
+      "bounds": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "trait_bounds",
             "named": true
           }
         ]
@@ -537,11 +619,56 @@
         "required": false,
         "types": [
           {
-            "type": "asm_op",
+            "type": "asm_content",
             "named": true
-          },
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "asm_content",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_type",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "self",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "asm_expression",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
           {
-            "type": "asm_return",
+            "type": "asm_block",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "asm_parameters",
             "named": true
           }
         ]
@@ -575,21 +702,6 @@
     }
   },
   {
-    "type": "asm_op",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "asm_parameter",
     "named": true,
     "fields": {
@@ -616,6 +728,10 @@
             "named": true
           },
           {
+            "type": "index_expression",
+            "named": true
+          },
+          {
             "type": "self",
             "named": true
           }
@@ -633,21 +749,6 @@
       "types": [
         {
           "type": "asm_parameter",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "asm_return",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
           "named": true
         }
       ]
@@ -732,8 +833,8 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
           "type": "attribute",
@@ -981,7 +1082,19 @@
             "named": true
           },
           {
+            "type": "abi_call_expression",
+            "named": true
+          },
+          {
+            "type": "abi_instance_expression",
+            "named": true
+          },
+          {
             "type": "array_expression",
+            "named": true
+          },
+          {
+            "type": "asm_expression",
             "named": true
           },
           {
@@ -1070,6 +1183,10 @@
           },
           {
             "type": "self",
+            "named": true
+          },
+          {
+            "type": "storage",
             "named": true
           },
           {
@@ -1298,7 +1415,7 @@
       },
       "type": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "_type",
@@ -1425,9 +1542,13 @@
         ]
       },
       "name": {
-        "multiple": false,
-        "required": true,
+        "multiple": true,
+        "required": false,
         "types": [
+          {
+            "type": "/",
+            "named": false
+          },
           {
             "type": "identifier",
             "named": true
@@ -2171,6 +2292,21 @@
     }
   },
   {
+    "type": "identifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "integer_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "if_expression",
     "named": true,
     "fields": {
@@ -2761,6 +2897,21 @@
     }
   },
   {
+    "type": "primitive_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "integer_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "program_type",
     "named": true,
     "fields": {
@@ -3182,6 +3333,21 @@
         },
         {
           "type": "storage_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "storage",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -4307,7 +4473,15 @@
     "named": true
   },
   {
+    "type": "bool",
+    "named": false
+  },
+  {
     "type": "break",
+    "named": false
+  },
+  {
+    "type": "char",
     "named": false
   },
   {
@@ -4359,6 +4533,14 @@
     "named": false
   },
   {
+    "type": "f32",
+    "named": false
+  },
+  {
+    "type": "f64",
+    "named": false
+  },
+  {
     "type": "false",
     "named": false
   },
@@ -4379,12 +4561,28 @@
     "named": false
   },
   {
-    "type": "ident",
+    "type": "i128",
     "named": false
   },
   {
-    "type": "identifier",
-    "named": true
+    "type": "i16",
+    "named": false
+  },
+  {
+    "type": "i32",
+    "named": false
+  },
+  {
+    "type": "i64",
+    "named": false
+  },
+  {
+    "type": "i8",
+    "named": false
+  },
+  {
+    "type": "ident",
+    "named": false
   },
   {
     "type": "if",
@@ -4401,6 +4599,10 @@
   {
     "type": "integer_literal",
     "named": true
+  },
+  {
+    "type": "isize",
+    "named": false
   },
   {
     "type": "item",
@@ -4455,10 +4657,6 @@
     "named": false
   },
   {
-    "type": "primitive_type",
-    "named": true
-  },
-  {
     "type": "pub",
     "named": false
   },
@@ -4495,6 +4693,10 @@
     "named": false
   },
   {
+    "type": "str",
+    "named": false
+  },
+  {
     "type": "struct",
     "named": false
   },
@@ -4519,7 +4721,31 @@
     "named": true
   },
   {
+    "type": "u128",
+    "named": false
+  },
+  {
+    "type": "u16",
+    "named": false
+  },
+  {
+    "type": "u32",
+    "named": false
+  },
+  {
+    "type": "u64",
+    "named": false
+  },
+  {
+    "type": "u8",
+    "named": false
+  },
+  {
     "type": "use",
+    "named": false
+  },
+  {
+    "type": "usize",
     "named": false
   },
   {

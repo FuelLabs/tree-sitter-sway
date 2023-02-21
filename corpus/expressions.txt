@@ -493,6 +493,14 @@ if foo && bar {}
 
 if foo && bar || baz {}
 
+if msg_asset_id() == BASE_ASSET_ID {
+    storage.balance += msg_amount();
+}
+
+if s.lower < self.lower {
+    upper = upper + 1;
+}
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -538,7 +546,38 @@ if foo && bar || baz {}
           left: (identifier)
           right: (identifier))
         right: (identifier))
-      consequence: (block))))
+      consequence: (block)))
+  (expression_statement
+    (if_expression
+      condition: (binary_expression
+        left: (call_expression
+          function: (identifier)
+          arguments: (arguments))
+        right: (identifier))
+      consequence: (block
+        (expression_statement
+          (compound_assignment_expr
+            left: (storage
+              (identifier))
+            right: (call_expression
+              function: (identifier)
+              arguments: (arguments)))))))
+  (expression_statement
+    (if_expression
+      condition: (binary_expression
+        left: (field_expression
+          value: (identifier)
+          field: (field_identifier))
+        right: (field_expression
+          value: (self)
+          field: (field_identifier)))
+      consequence: (block
+        (expression_statement
+          (assignment_expression
+            left: (identifier)
+            right: (binary_expression
+              left: (identifier)
+              right: (integer_literal))))))))
 
 ================================================================================
 Basic if let expressions
@@ -1027,7 +1066,10 @@ Generic functions
 ================================================================================
 
 std::sizeof::<u32>();
+
 foo::<8>();
+
+__smo::<Option::<TestStruct<u64>>>();
 
 --------------------------------------------------------------------------------
 
@@ -1047,6 +1089,19 @@ foo::<8>();
         function: (identifier)
         type_arguments: (type_arguments
           (integer_literal)))
+      arguments: (arguments)))
+  (expression_statement
+    (call_expression
+      function: (generic_function
+        function: (identifier)
+        type_arguments: (type_arguments
+          (generic_type_with_turbofish
+            type: (type_identifier)
+            type_arguments: (type_arguments
+              (generic_type
+                type: (type_identifier)
+                type_arguments: (type_arguments
+                  (primitive_type)))))))
       arguments: (arguments))))
 
 ================================================================================

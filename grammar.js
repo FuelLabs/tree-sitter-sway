@@ -15,6 +15,7 @@ const PREC = {
   or: 2,
   assign: 0,
   closure: -1,
+  abi: -2,
 }
 
 const numeric_types = [
@@ -33,8 +34,6 @@ const numeric_types = [
   'f32',
   'f64'
 ]
-
-const primitive_types = numeric_types.concat(['bool', 'str', 'char'])
 
 module.exports = grammar({
   name: 'sway',
@@ -71,10 +70,13 @@ module.exports = grammar({
   conflicts: $ => [
     // Local ambiguity due to anonymous types:
     [$._type, $._pattern],
+    [$._type, $._expression_except_range],
     [$.unit_type, $.tuple_pattern],
+    [$.unit_type, $.unit_expression],
     [$.scoped_identifier, $.scoped_type_identifier],
     [$.parameters, $._pattern],
     [$.parameters, $.tuple_struct_pattern],
+    [$._expression_except_range, $._statement],
   ],
 
   word: $ => $.identifier,
@@ -92,6 +94,13 @@ module.exports = grammar({
     ),
 
     empty_statement: $ => ';',
+
+    primitive_type: $ => choice(
+      ...numeric_types, 
+      'bool', 
+      'char', 
+      prec.right(seq('str', optional(seq('[', $.integer_literal, ']'))))
+    ),
 
     program_type: $ => seq(
       choice('contract', 'script', 'predicate', 'library'), optional(seq(' ', field('name', $._pattern))), ';',
@@ -153,7 +162,7 @@ module.exports = grammar({
     // with $).
     _non_special_token: $ => choice(
       $._literal, $.identifier, $.mutable_specifier, $.self,
-      alias(choice(...primitive_types), $.primitive_type),
+      $.primitive_type,
       /[/_\-=->,;:::!=?.@*&#%^+<>|~]+/,
       '\'',
       'abi', 'as', 'break', 'configurable', 'const', 'continue', 'default', 'dep', 'enum', 'fn', 'for', 'if', 'impl',
@@ -165,7 +174,7 @@ module.exports = grammar({
     attribute_item: $ => seq(
       '#',
       '[',
-      $.attribute,
+      sepBy(',', $.attribute),
       ']'
     ),
 
@@ -188,7 +197,7 @@ module.exports = grammar({
     dep_item: $ => seq(
       optional($.visibility_modifier),
       'dep',
-      field('name', $.identifier),
+      field('name', sepBy('/', $.identifier)),
       choice(
         ';',
         field('body', $.declaration_list)
@@ -297,8 +306,7 @@ module.exports = grammar({
       optional($.visibility_modifier),
       'const',
       field('name', $.identifier),
-      ':',
-      field('type', $._type),
+      optional(seq(':', field('type', $._type))),
       optional(
         seq(
           '=',
@@ -358,7 +366,7 @@ module.exports = grammar({
         $.pointer_type,
         $.tuple_type,
         $.higher_ranked_trait_bound,
-        alias(choice(...primitive_types), $.primitive_type)
+        $.primitive_type,
       )),
       field('bounds', $.trait_bounds)
     ),
@@ -382,7 +390,8 @@ module.exports = grammar({
     abi_item: $ => seq(
       'abi',
       field('name', $._type_identifier),
-      field('body', $.declaration_list)
+      field('bounds', optional($.trait_bounds)),
+      field('body', $.declaration_list),
     ),
 
     trait_item: $ => seq(
@@ -525,7 +534,7 @@ module.exports = grammar({
     ),
 
     self_parameter: $ => seq(
-      optional('&'),
+      optional(choice('&', 'ref')),
       optional($.mutable_specifier),
       $.self
     ),
@@ -556,7 +565,10 @@ module.exports = grammar({
       field('pattern', choice(
         $._pattern,
       )),
-      optional(seq(':', field('type', choice($._type, $._literal, $.self)))),
+      optional(seq(
+        ':', 
+        field('type', choice($._type, $._literal, $.self, $.index_expression))
+      )),
     ),    
 
     visibility_modifier: $ => prec.right(
@@ -581,6 +593,7 @@ module.exports = grammar({
       $.metavariable,
       $.pointer_type,
       $.generic_type,
+      $.generic_type_with_turbofish,
       $.scoped_type_identifier,
       $.tuple_type,
       $.unit_type,
@@ -589,7 +602,7 @@ module.exports = grammar({
       $._type_identifier,
       $.empty_type,
       $.bounded_type,
-      alias(choice(...primitive_types), $.primitive_type)
+      $.primitive_type,
     ),
 
     bracketed_type: $ => seq(
@@ -727,14 +740,18 @@ module.exports = grammar({
       $.assignment_expression,
       $.compound_assignment_expr,
       $.type_cast_expression,
+      $.abi_call_expression,
+      alias($.asm_item, $.asm_expression),
       $.call_expression,
+      $.abi_instance_expression,
       $.return_expression,
       $.yield_expression,
       $._literal,
       prec.left($.identifier),
-      alias(choice(...primitive_types), $.identifier),
+      alias($.primitive_type, $.identifier),
       prec.left($._reserved_identifier),
       $.self,
+      $.storage,
       $.scoped_identifier,
       $.generic_function,
       $.field_expression,
@@ -885,6 +902,17 @@ module.exports = grammar({
 
     call_expression: $ => prec(PREC.call, seq(
       field('function', $._expression_except_range),
+      field('arguments', $.arguments)
+    )),
+
+    abi_call_expression: $ => prec(PREC.abi, seq(
+      field('function', $.field_expression),
+      field('initalizer', $.field_initializer_list),
+      field('arguments', $.arguments)
+    )),
+
+    abi_instance_expression: $ => prec(PREC.call, seq(
+      'abi',
       field('arguments', $.arguments)
     )),
 
@@ -1108,19 +1136,24 @@ module.exports = grammar({
 
     asm_block: $ => prec.right(seq(
       '{',
-      repeat(field('value', choice($.asm_op, $.asm_return))),
+      repeat(field('value', $.asm_content)),
       '}',
-      optional(';'),
     )),
 
-    asm_op: $ => seq(sepBy(' ', $.identifier), ';'),
-    asm_return: $ => seq($.identifier, ":",  $.identifier),
+    asm_content: $ => prec.right(seq(
+      repeat1(seq(
+        $.identifier, 
+        optional(
+          seq(':', choice($._type, $.self))),
+        optional(';'),
+      )),
+    )),
 
     // Section - Patterns
 
     _pattern: $ => choice(
       $._literal_pattern,
-      alias(choice(...primitive_types), $.identifier),
+      alias($.primitive_type, $.identifier),
       $.identifier,
       $.scoped_identifier,
       $.tuple_pattern,
@@ -1316,7 +1349,7 @@ module.exports = grammar({
 
     _path: $ => choice(
       $.self,
-      alias(choice(...primitive_types), $.identifier),
+      alias($.primitive_type, $.identifier),
       $.metavariable,
       $.identifier,
       $.scoped_identifier,
@@ -1331,6 +1364,8 @@ module.exports = grammar({
     _field_identifier: $ => alias($.identifier, $.field_identifier),
 
     self: $ => 'self',
+
+    storage: $ => seq('storage', '.', $.identifier),
 
     metavariable: $ => /\$[a-zA-Z_]\w*/
   }

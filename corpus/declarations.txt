@@ -11,6 +11,8 @@ dep english {
     dep farewells {}
 }
 
+dep bar/baz;
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -27,7 +29,10 @@ dep english {
         (declaration_list))
       (dep_item
         (identifier)
-        (declaration_list)))))
+        (declaration_list))))
+  (dep_item
+    (identifier)
+    (identifier)))
 
 ================================================================================
 Function declarations
@@ -582,6 +587,7 @@ Generic functions
 
 pub fn splice<T: Into<Text>>(&mut self, old_range: Range<usize>, new_text: T) {
 }
+
 pub fn uninit_array<const LEN: usize>() -> [Self; LEN] {}
 
 --------------------------------------------------------------------------------
@@ -632,6 +638,12 @@ Functions with mutable parameters
 fn foo(mut x : u32) {
 }
 
+impl Foo {
+    pub fn set(ref mut self, value: u64) {
+        self.value = value;
+    }
+}
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -642,7 +654,27 @@ fn foo(mut x : u32) {
         (mutable_specifier)
         (identifier)
         (primitive_type)))
-    (block)))
+    (block))
+  (impl_item
+    (type_identifier)
+    (declaration_list
+      (function_item
+        (visibility_modifier)
+        (identifier)
+        (parameters
+          (self_parameter
+            (mutable_specifier)
+            (self))
+          (parameter
+            (identifier)
+            (primitive_type)))
+        (block
+          (expression_statement
+            (assignment_expression
+              (field_expression
+                (self)
+                (field_identifier))
+              (identifier))))))))
 
 ================================================================================
 Functions with destructured parameters
@@ -721,6 +753,8 @@ trait Foo {
     const X: u8;
 }
 
+const OWNER_ADDRESS = Address::from(0x8900c5bec4ca97d4febf9ceb4754a60d782abbf3cd815836c1872116f203f861);
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -733,7 +767,15 @@ trait Foo {
     (declaration_list
       (const_item
         (identifier)
-        (primitive_type)))))
+        (primitive_type))))
+  (const_item
+    (identifier)
+    (call_expression
+      (scoped_identifier
+        (identifier)
+        (identifier))
+      (arguments
+        (integer_literal)))))
 
 ================================================================================
 Empty statements
@@ -771,6 +813,11 @@ dep macos_only {}
 #![allow(clippy::useless_transmute)]
 
 #[clippy::cyclomatic_complexity = "100"]
+
+#[payable, storage(read, write)]
+fn receive_funds() {
+    // Do something
+}
 
 --------------------------------------------------------------------------------
 
@@ -817,7 +864,20 @@ dep macos_only {}
       (scoped_identifier
         path: (identifier)
         name: (identifier))
-      value: (string_literal))))
+      value: (string_literal)))
+  (attribute_item
+    (attribute
+      (identifier))
+    (attribute
+      (identifier)
+      arguments: (token_tree
+        (identifier)
+        (identifier))))
+  (function_item
+    name: (identifier)
+    parameters: (parameters)
+    body: (block
+      (line_comment))))
 
 ================================================================================
 Inner attributes

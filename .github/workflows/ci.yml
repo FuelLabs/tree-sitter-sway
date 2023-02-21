@@ -31,3 +31,20 @@ jobs:
           node-version: 14
       - run: npm install
       - run: npm test
+
+  test_examples:
+    name: Test parsing examples from the sway repo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout Sway repo
+        uses: actions/checkout@v2
+        with:
+          repository: fuellabs/sway
+          path: sway
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - run: npm install
+      - name: 'Parse and check for errors'
+        run: ./scripts/parse-and-check.sh

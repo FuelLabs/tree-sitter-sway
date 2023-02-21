@@ -176,7 +176,7 @@ configurable {
       (line_comment))))
 
 ================================================================================
-ABI
+ABI items
 ================================================================================
 
 abi Empty {}
@@ -203,6 +203,15 @@ abi IdentityExample {
     fn cast_to_identity();
     fn different_executions(my_identity: Identity);
     fn identity_to_contract_id(my_identity: Identity);
+}
+
+abi MyAbi : MyTrait1 + MyTrait2 {
+    fn bar();
+} {
+    fn baz() {
+        Self::foo1();
+        Self::foo2();
+    }
 }
 
 --------------------------------------------------------------------------------
@@ -275,10 +284,96 @@ abi IdentityExample {
         (parameters
           (parameter
             (identifier)
-            (type_identifier)))))))
+            (type_identifier))))))
+  (abi_item
+    (type_identifier)
+    (trait_bounds
+      (type_identifier)
+      (type_identifier))
+    (declaration_list
+      (function_signature_item
+        (identifier)
+        (parameters))))
+  (expression_statement
+    (block
+      (function_item
+        (identifier)
+        (parameters)
+        (block
+          (expression_statement
+            (call_expression
+              (scoped_identifier
+                (identifier)
+                (identifier))
+              (arguments)))
+          (expression_statement
+            (call_expression
+              (scoped_identifier
+                (identifier)
+                (identifier))
+              (arguments))))))))
 
 ================================================================================
-ASM
+ABI expressions
+================================================================================
+
+abi(TestAbi, 0x3dba0a4455b598b7655a7fb430883d96c9527ef275b49739e7b0ad12f8280eae).deposit(amount);
+
+caller.send_funds {
+    gas: 10000,
+    asset_id: ZERO_B256,
+}(amount_to_send, recipient_address);
+
+let number = balance_test_contract.get_42 {
+    gas: u64::max(),
+}();
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (expression_statement
+    (call_expression
+      (field_expression
+        (abi_instance_expression
+          (arguments
+            (identifier)
+            (integer_literal)))
+        (field_identifier))
+      (arguments
+        (identifier))))
+  (expression_statement
+    (abi_call_expression
+      (field_expression
+        (identifier)
+        (field_identifier))
+      (field_initializer_list
+        (field_initializer
+          (field_identifier)
+          (integer_literal))
+        (field_initializer
+          (field_identifier)
+          (identifier)))
+      (arguments
+        (identifier)
+        (identifier))))
+  (let_declaration
+    (identifier)
+    (abi_call_expression
+      (field_expression
+        (identifier)
+        (field_identifier))
+      (field_initializer_list
+        (field_initializer
+          (field_identifier)
+          (call_expression
+            (scoped_identifier
+              (identifier)
+              (identifier))
+            (arguments))))
+      (arguments))))
+
+================================================================================
+ASM blocks
 ================================================================================
 
 asm(r1: 0, r2: 0, r3, r4) {
@@ -303,38 +398,45 @@ impl Ord for u32 {
     }
 }
 
+asm(r1: a, r2: ZERO_B256) {
+    log r1 r2 zero zero;
+    zero
+};
+
+asm(r1: (big_value.bytes)[0], r2) {
+    r2: bool
+};
+
 --------------------------------------------------------------------------------
 
 (source_file
-  (asm_item
-    (asm_parameters
-      (asm_parameter
-        (identifier)
-        (integer_literal))
-      (asm_parameter
-        (identifier)
-        (integer_literal))
-      (asm_parameter
-        (identifier))
-      (asm_parameter
-        (identifier)))
-    (asm_block
-      (asm_op
-        (identifier)
-        (identifier)
-    (identifier))
-      (asm_op
-        (identifier)
-        (identifier)
-        (identifier))
-      (asm_op
-        (identifier)
-        (identifier)
-        (identifier))
-      (asm_op
-        (identifier)
-        (identifier)
-        (identifier))))
+  (expression_statement
+    (asm_expression
+      (asm_parameters
+        (asm_parameter
+          (identifier)
+          (integer_literal))
+        (asm_parameter
+          (identifier)
+          (integer_literal))
+        (asm_parameter
+          (identifier))
+        (asm_parameter
+          (identifier)))
+      (asm_block
+        (asm_content
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)))))
   (impl_item
     (type_identifier)
     (primitive_type)
@@ -360,14 +462,13 @@ impl Ord for u32 {
               (asm_parameter
                 (identifier)))
             (asm_block
-              (asm_op
+              (asm_content
                 (identifier)
                 (identifier)
                 (identifier)
-                (identifier))
-              (asm_return
                 (identifier)
-                (identifier))))))
+                (identifier)
+                (primitive_type))))))                
       (function_item
         (identifier)
         (parameters
@@ -389,14 +490,120 @@ impl Ord for u32 {
               (asm_parameter
                 (identifier)))
             (asm_block
-              (asm_op
+              (asm_content
                 (identifier)
                 (identifier)
                 (identifier)
-                (identifier))
-              (asm_return
                 (identifier)
-                (identifier)))))))))
+                (identifier)
+                (primitive_type))))))))
+  (expression_statement
+    (asm_expression
+      (asm_parameters
+        (asm_parameter
+          (identifier)
+          (type_identifier))
+        (asm_parameter
+          (identifier)
+          (type_identifier)))
+      (asm_block
+        (asm_content
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)))))
+  (expression_statement
+    (asm_expression
+      (asm_parameters
+        (asm_parameter
+          (identifier)
+          (index_expression
+            (parenthesized_expression
+              (field_expression
+                (identifier)
+                (field_identifier)))
+            (integer_literal)))
+        (asm_parameter
+          (identifier)))
+      (asm_block
+        (asm_content
+          (identifier)
+          (primitive_type))))))
+
+================================================================================
+ASM expressions
+================================================================================
+
+let balance = asm(token_bal, token: BASE_ASSET_ID, id: balance_test_contract_id) {
+    bal  token_bal token id;
+    token_bal: u64
+};
+
+assert(foo_ptr == asm(r1: foo) { r1: raw_ptr });
+
+fn get_gas() -> GasCounts {
+    GasCounts {
+        global_gas: asm() {
+            ggas
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (let_declaration
+    (identifier)
+    (asm_expression
+      (asm_parameters
+        (asm_parameter
+          (identifier))
+        (asm_parameter
+          (identifier)
+          (type_identifier))
+        (asm_parameter
+          (identifier)
+          (type_identifier)))
+      (asm_block
+        (asm_content
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (identifier)
+          (primitive_type)))))
+  (expression_statement
+    (call_expression
+      (identifier)
+      (arguments
+        (binary_expression
+          (identifier)
+          (asm_expression
+            (asm_parameters
+              (asm_parameter
+                (identifier)
+                (type_identifier)))
+            (asm_block
+              (asm_content
+                (identifier)
+                (type_identifier))))))))
+  (function_item
+    (identifier)
+    (parameters)
+    (type_identifier)
+    (block
+      (struct_expression
+        (type_identifier)
+        (field_initializer_list
+          (field_initializer
+            (field_identifier)
+            (asm_expression
+              (asm_parameters)
+              (asm_block
+                (asm_content
+                  (identifier))))))))))
 
 ================================================================================
 Program Type
@@ -418,3 +625,4 @@ library my_lib;
   (program_type)
   (program_type
     (identifier)))
+

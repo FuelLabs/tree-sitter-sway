@@ -466,7 +466,7 @@ module.exports = grammar({
       )),
       optional(seq(
         '=',
-        field('value', choice($._expression))
+        field('value', $._expression)
       )),
       optional(seq(
         'else',

@@ -382,6 +382,10 @@
         "named": true
       },
       {
+        "type": "generic_type_with_turbofish",
+        "named": true
+      },
+      {
         "type": "metavariable",
         "named": true
       },

@@ -3089,7 +3089,7 @@
                       },
                       {
                         "type": "SYMBOL",
-                        "name": "_expression"
+                        "name": "index_expression"
                       }
                     ]
                   }
@@ -3181,6 +3181,10 @@
         {
           "type": "SYMBOL",
           "name": "generic_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "generic_type_with_turbofish"
         },
         {
           "type": "SYMBOL",

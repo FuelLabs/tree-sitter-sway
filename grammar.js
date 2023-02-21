@@ -591,6 +591,7 @@ module.exports = grammar({
       $.metavariable,
       $.pointer_type,
       $.generic_type,
+      $.generic_type_with_turbofish,
       $.scoped_type_identifier,
       $.tuple_type,
       $.unit_type,

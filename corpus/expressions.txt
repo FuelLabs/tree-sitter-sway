@@ -1046,7 +1046,10 @@ Generic functions
 ================================================================================
 
 std::sizeof::<u32>();
+
 foo::<8>();
+
+__smo::<Option::<TestStruct<u64>>>();
 
 --------------------------------------------------------------------------------
 
@@ -1066,6 +1069,19 @@ foo::<8>();
         function: (identifier)
         type_arguments: (type_arguments
           (integer_literal)))
+      arguments: (arguments)))
+  (expression_statement
+    (call_expression
+      function: (generic_function
+        function: (identifier)
+        type_arguments: (type_arguments
+          (generic_type_with_turbofish
+            type: (type_identifier)
+            type_arguments: (type_arguments
+              (generic_type
+                type: (type_identifier)
+                type_arguments: (type_arguments
+                  (primitive_type)))))))
       arguments: (arguments))))
 
 ================================================================================

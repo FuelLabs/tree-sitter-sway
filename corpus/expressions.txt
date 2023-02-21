@@ -497,6 +497,10 @@ if msg_asset_id() == BASE_ASSET_ID {
     storage.balance += msg_amount();
 }
 
+if s.lower < self.lower {
+    upper = upper + 1;
+}
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -557,7 +561,23 @@ if msg_asset_id() == BASE_ASSET_ID {
               (identifier))
             right: (call_expression
               function: (identifier)
-              arguments: (arguments))))))))
+              arguments: (arguments)))))))
+  (expression_statement
+    (if_expression
+      condition: (binary_expression
+        left: (field_expression
+          value: (identifier)
+          field: (field_identifier))
+        right: (field_expression
+          value: (self)
+          field: (field_identifier)))
+      consequence: (block
+        (expression_statement
+          (assignment_expression
+            left: (identifier)
+            right: (binary_expression
+              left: (identifier)
+              right: (integer_literal))))))))
 
 ================================================================================
 Basic if let expressions

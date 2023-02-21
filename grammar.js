@@ -15,6 +15,7 @@ const PREC = {
   or: 2,
   assign: 0,
   closure: -1,
+  abi: -2,
 }
 
 const numeric_types = [
@@ -903,7 +904,7 @@ module.exports = grammar({
       field('arguments', $.arguments)
     )),
 
-    abi_call_expression: $ => prec(PREC.call, seq(
+    abi_call_expression: $ => prec(PREC.abi, seq(
       field('function', $.field_expression),
       field('initalizer', $.field_initializer_list),
       field('arguments', $.arguments)

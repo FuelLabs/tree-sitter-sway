@@ -2478,13 +2478,8 @@
                   "type": "FIELD",
                   "name": "value",
                   "content": {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_expression"
-                      }
-                    ]
+                    "type": "SYMBOL",
+                    "name": "_expression"
                   }
                 }
               ]
@@ -5010,7 +5005,7 @@
     },
     "abi_call_expression": {
       "type": "PREC",
-      "value": 14,
+      "value": -2,
       "content": {
         "type": "SEQ",
         "members": [

@@ -2045,6 +2045,22 @@
         },
         {
           "type": "FIELD",
+          "name": "bounds",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "trait_bounds"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
           "name": "body",
           "content": {
             "type": "SYMBOL",

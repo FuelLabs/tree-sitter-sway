@@ -176,7 +176,7 @@ configurable {
       (line_comment))))
 
 ================================================================================
-ABI
+ABI items
 ================================================================================
 
 abi Empty {}
@@ -205,16 +205,14 @@ abi IdentityExample {
     fn identity_to_contract_id(my_identity: Identity);
 }
 
-abi(TestAbi, 0x3dba0a4455b598b7655a7fb430883d96c9527ef275b49739e7b0ad12f8280eae).deposit(amount);
-
-caller.send_funds {
-    gas: 10000,
-    asset_id: ZERO_B256,
-}(amount_to_send, recipient_address);
-
-let number = balance_test_contract.get_42 {
-    gas: u64::max(),
-}();
+abi MyAbi : MyTrait1 + MyTrait2 {
+    fn bar();
+} {
+    fn baz() {
+        Self::foo1();
+        Self::foo2();
+    }
+}
 
 --------------------------------------------------------------------------------
 
@@ -287,6 +285,52 @@ let number = balance_test_contract.get_42 {
           (parameter
             (identifier)
             (type_identifier))))))
+  (abi_item
+    (type_identifier)
+    (trait_bounds
+      (type_identifier)
+      (type_identifier))
+    (declaration_list
+      (function_signature_item
+        (identifier)
+        (parameters))))
+  (expression_statement
+    (block
+      (function_item
+        (identifier)
+        (parameters)
+        (block
+          (expression_statement
+            (call_expression
+              (scoped_identifier
+                (identifier)
+                (identifier))
+              (arguments)))
+          (expression_statement
+            (call_expression
+              (scoped_identifier
+                (identifier)
+                (identifier))
+              (arguments))))))))
+
+================================================================================
+ABI expressions
+================================================================================
+
+abi(TestAbi, 0x3dba0a4455b598b7655a7fb430883d96c9527ef275b49739e7b0ad12f8280eae).deposit(amount);
+
+caller.send_funds {
+    gas: 10000,
+    asset_id: ZERO_B256,
+}(amount_to_send, recipient_address);
+
+let number = balance_test_contract.get_42 {
+    gas: u64::max(),
+}();
+
+--------------------------------------------------------------------------------
+
+(source_file
   (expression_statement
     (call_expression
       (field_expression

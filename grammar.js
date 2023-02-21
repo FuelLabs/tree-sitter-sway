@@ -390,7 +390,8 @@ module.exports = grammar({
     abi_item: $ => seq(
       'abi',
       field('name', $._type_identifier),
-      field('body', $.declaration_list)
+      field('bounds', optional($.trait_bounds)),
+      field('body', $.declaration_list),
     ),
 
     trait_item: $ => seq(

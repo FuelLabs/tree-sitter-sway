@@ -485,6 +485,16 @@
           }
         ]
       },
+      "bounds": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "trait_bounds",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,

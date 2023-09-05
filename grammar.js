@@ -120,6 +120,7 @@ module.exports = grammar({
       $.mod_item,
       $.struct_item,
       $.enum_item,
+      $.type_item,
       $.function_item,
       $.function_signature_item,
       $.impl_item,
@@ -166,7 +167,7 @@ module.exports = grammar({
       /[/_\-=->,;:::!=?.@*&#%^+<>|~]+/,
       '\'',
       'abi', 'as', 'break', 'configurable', 'const', 'continue', 'default', 'mod', 'enum', 'fn', 'for', 'if', 'impl',
-      'let', 'match', 'mod', 'pub', 'return', 'storage', 'struct', 'trait', 'use', 'where', 'while'
+      'let', 'match', 'mod', 'pub', 'return', 'storage', 'struct', 'trait', 'type', 'use', 'where', 'while'
     ),
 
     // Section - Declarations
@@ -317,6 +318,16 @@ module.exports = grammar({
       'asm',
       field('parameters', $.asm_parameters),
       field('body', $.asm_block),
+    ),
+
+    type_item: $ => seq(
+      optional($.visibility_modifier),
+      'type',
+      field('name', $._type_identifier),
+      field('type_parameters', optional($.type_parameters)),
+      '=',
+      field('type', $._type),
+      ';',
     ),
 
     function_item: $ => seq(

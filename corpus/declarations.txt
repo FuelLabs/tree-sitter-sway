@@ -759,6 +759,28 @@ const OWNER_ADDRESS = Address::from(0x8900c5bec4ca97d4febf9ceb4754a60d782abbf3cd
         (integer_literal)))))
 
 ================================================================================
+Type aliases
+================================================================================
+
+type Inch = u64;
+type Name<T> = Vec<T>;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_item
+    (type_identifier)
+    (primitive_type))
+  (type_item
+    (type_identifier)
+    (type_parameters
+      (type_identifier))
+    (generic_type
+      (type_identifier)
+      (type_arguments
+        (type_identifier)))))
+
+================================================================================
 Empty statements
 ================================================================================
 

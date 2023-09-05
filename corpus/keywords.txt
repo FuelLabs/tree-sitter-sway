@@ -615,7 +615,7 @@ script;
 
 predicate;
 
-library my_lib;
+library;
 
 --------------------------------------------------------------------------------
 
@@ -623,6 +623,5 @@ library my_lib;
   (program_type)
   (program_type)
   (program_type)
-  (program_type
-    (identifier)))
+  (program_type))
 

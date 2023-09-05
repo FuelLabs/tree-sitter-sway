@@ -117,7 +117,7 @@ module.exports = grammar({
       $.empty_statement,
       $.attribute_item,
       $.inner_attribute_item,
-      $.dep_item,
+      $.mod_item,
       $.struct_item,
       $.enum_item,
       $.function_item,
@@ -165,7 +165,7 @@ module.exports = grammar({
       $.primitive_type,
       /[/_\-=->,;:::!=?.@*&#%^+<>|~]+/,
       '\'',
-      'abi', 'as', 'break', 'configurable', 'const', 'continue', 'default', 'dep', 'enum', 'fn', 'for', 'if', 'impl',
+      'abi', 'as', 'break', 'configurable', 'const', 'continue', 'default', 'mod', 'enum', 'fn', 'for', 'if', 'impl',
       'let', 'match', 'mod', 'pub', 'return', 'storage', 'struct', 'trait', 'use', 'where', 'while'
     ),
 
@@ -194,14 +194,11 @@ module.exports = grammar({
       ))
     ),
 
-    dep_item: $ => seq(
+    mod_item: $ => seq(
       optional($.visibility_modifier),
-      'dep',
-      field('name', sepBy('/', $.identifier)),
-      choice(
-        ';',
-        field('body', $.declaration_list)
-      )
+      'mod',
+      field('name', $.identifier),
+      ';',
     ),
 
     declaration_list: $ => seq(

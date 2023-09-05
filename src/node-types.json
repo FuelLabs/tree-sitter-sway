@@ -16,10 +16,6 @@
         "named": true
       },
       {
-        "type": "dep_item",
-        "named": true
-      },
-      {
         "type": "empty_statement",
         "named": true
       },
@@ -45,6 +41,10 @@
       },
       {
         "type": "let_declaration",
+        "named": true
+      },
+      {
+        "type": "mod_item",
         "named": true
       },
       {
@@ -1528,46 +1528,6 @@
     }
   },
   {
-    "type": "dep_item",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "declaration_list",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "/",
-            "named": false
-          },
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "visibility_modifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "deref_pattern",
     "named": true,
     "fields": {},
@@ -2666,6 +2626,32 @@
       "types": [
         {
           "type": "_pattern",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mod_item",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "visibility_modifier",
           "named": true
         }
       ]
@@ -4509,10 +4495,6 @@
     "named": false
   },
   {
-    "type": "dep",
-    "named": false
-  },
-  {
     "type": "deref",
     "named": false
   },
@@ -4635,6 +4617,10 @@
   {
     "type": "metavariable",
     "named": true
+  },
+  {
+    "type": "mod",
+    "named": false
   },
   {
     "type": "move",

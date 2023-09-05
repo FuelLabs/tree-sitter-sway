@@ -255,7 +255,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "dep_item"
+          "name": "mod_item"
         },
         {
           "type": "SYMBOL",
@@ -533,7 +533,7 @@
         },
         {
           "type": "STRING",
-          "value": "dep"
+          "value": "mod"
         },
         {
           "type": "STRING",
@@ -562,6 +562,10 @@
         {
           "type": "STRING",
           "value": "match"
+        },
+        {
+          "type": "STRING",
+          "value": "mod"
         },
         {
           "type": "STRING",
@@ -724,7 +728,7 @@
         }
       ]
     },
-    "dep_item": {
+    "mod_item": {
       "type": "SEQ",
       "members": [
         {
@@ -741,61 +745,19 @@
         },
         {
           "type": "STRING",
-          "value": "dep"
+          "value": "mod"
         },
         {
           "type": "FIELD",
           "name": "name",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  },
-                  {
-                    "type": "REPEAT",
-                    "content": {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "STRING",
-                          "value": "/"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "identifier"
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "identifier"
           }
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": ";"
-            },
-            {
-              "type": "FIELD",
-              "name": "body",
-              "content": {
-                "type": "SYMBOL",
-                "name": "declaration_list"
-              }
-            }
-          ]
+          "type": "STRING",
+          "value": ";"
         }
       ]
     },

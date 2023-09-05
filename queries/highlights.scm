@@ -134,7 +134,7 @@
 ] @keyword.other
 
 "use" @keyword.control.import
-(dep_item "dep" @keyword.control.import !body)
+(mod_item "mod" @keyword.control.import !body)
 (use_as_clause "as" @keyword.control.import)
 
 (type_cast_expression "as" @keyword.operator)
@@ -142,7 +142,7 @@
 [
   "as"
   "pub"
-  "dep"
+  "mod"
   "abi"
   "impl"
   "where"
@@ -304,7 +304,7 @@
   argument: (identifier) @namespace)
 (use_wildcard
   (identifier) @namespace)
-(dep_item
+(mod_item
   name: (identifier) @namespace)
 (scoped_use_list
   path: (identifier)? @namespace)

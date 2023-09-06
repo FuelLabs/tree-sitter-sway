@@ -75,28 +75,28 @@ let b: *const str;
 Generic types
 ================================================================================
 
-let a: B<C>;
-let d: E<F, str>;
-let j: H<K=L>;
+type A = B<C>;
+type D = E<F, str>;
+type J = H<K=L>;
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (let_declaration
-    (identifier)
+  (type_item
+    (type_identifier)
     (generic_type
       (type_identifier)
       (type_arguments
         (type_identifier))))
-  (let_declaration
-    (identifier)
+  (type_item
+    (type_identifier)
     (generic_type
       (type_identifier)
       (type_arguments
         (type_identifier)
         (primitive_type))))
-  (let_declaration
-    (identifier)
+  (type_item
+    (type_identifier)
     (generic_type
       (type_identifier)
       (type_arguments

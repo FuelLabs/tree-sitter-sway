@@ -16,10 +16,6 @@
         "named": true
       },
       {
-        "type": "dep_item",
-        "named": true
-      },
-      {
         "type": "empty_statement",
         "named": true
       },
@@ -48,11 +44,19 @@
         "named": true
       },
       {
+        "type": "mod_item",
+        "named": true
+      },
+      {
         "type": "struct_item",
         "named": true
       },
       {
         "type": "trait_item",
+        "named": true
+      },
+      {
+        "type": "type_item",
         "named": true
       },
       {
@@ -1528,46 +1532,6 @@
     }
   },
   {
-    "type": "dep_item",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "declaration_list",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "/",
-            "named": false
-          },
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "visibility_modifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "deref_pattern",
     "named": true,
     "fields": {},
@@ -2672,6 +2636,32 @@
     }
   },
   {
+    "type": "mod_item",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "visibility_modifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "mut_pattern",
     "named": true,
     "fields": {},
@@ -3369,9 +3359,13 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attribute_item",
+          "named": true
+        },
         {
           "type": "field_declaration",
           "named": true
@@ -3876,6 +3870,52 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "type_item",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_type",
+            "named": true
+          }
+        ]
+      },
+      "type_parameters": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_parameters",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "visibility_modifier",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4465,6 +4505,10 @@
     "named": false
   },
   {
+    "type": "b256",
+    "named": false
+  },
+  {
     "type": "block",
     "named": false
   },
@@ -4506,10 +4550,6 @@
   },
   {
     "type": "default",
-    "named": false
-  },
-  {
-    "type": "dep",
     "named": false
   },
   {
@@ -4566,6 +4606,10 @@
   },
   {
     "type": "i16",
+    "named": false
+  },
+  {
+    "type": "i256",
     "named": false
   },
   {
@@ -4635,6 +4679,10 @@
   {
     "type": "metavariable",
     "named": true
+  },
+  {
+    "type": "mod",
+    "named": false
   },
   {
     "type": "move",
@@ -4717,6 +4765,10 @@
     "named": false
   },
   {
+    "type": "type",
+    "named": false
+  },
+  {
     "type": "type_identifier",
     "named": true
   },
@@ -4726,6 +4778,10 @@
   },
   {
     "type": "u16",
+    "named": false
+  },
+  {
+    "type": "u256",
     "named": false
   },
   {

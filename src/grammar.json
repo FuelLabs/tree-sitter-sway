@@ -87,6 +87,18 @@
         },
         {
           "type": "STRING",
+          "value": "u256"
+        },
+        {
+          "type": "STRING",
+          "value": "i256"
+        },
+        {
+          "type": "STRING",
+          "value": "b256"
+        },
+        {
+          "type": "STRING",
           "value": "isize"
         },
         {
@@ -255,7 +267,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "dep_item"
+          "name": "mod_item"
         },
         {
           "type": "SYMBOL",
@@ -264,6 +276,10 @@
         {
           "type": "SYMBOL",
           "name": "enum_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_item"
         },
         {
           "type": "SYMBOL",
@@ -533,7 +549,7 @@
         },
         {
           "type": "STRING",
-          "value": "dep"
+          "value": "mod"
         },
         {
           "type": "STRING",
@@ -565,6 +581,10 @@
         },
         {
           "type": "STRING",
+          "value": "mod"
+        },
+        {
+          "type": "STRING",
           "value": "pub"
         },
         {
@@ -582,6 +602,10 @@
         {
           "type": "STRING",
           "value": "trait"
+        },
+        {
+          "type": "STRING",
+          "value": "type"
         },
         {
           "type": "STRING",
@@ -724,7 +748,7 @@
         }
       ]
     },
-    "dep_item": {
+    "mod_item": {
       "type": "SEQ",
       "members": [
         {
@@ -741,61 +765,19 @@
         },
         {
           "type": "STRING",
-          "value": "dep"
+          "value": "mod"
         },
         {
           "type": "FIELD",
           "name": "name",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  },
-                  {
-                    "type": "REPEAT",
-                    "content": {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "STRING",
-                          "value": "/"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "identifier"
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "identifier"
           }
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": ";"
-            },
-            {
-              "type": "FIELD",
-              "name": "body",
-              "content": {
-                "type": "SYMBOL",
-                "name": "declaration_list"
-              }
-            }
-          ]
+          "type": "STRING",
+          "value": ";"
         }
       ]
     },
@@ -1220,6 +1202,21 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "attribute_item"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "field_declaration"
         },
@@ -1575,6 +1572,67 @@
             "type": "SYMBOL",
             "name": "asm_block"
           }
+        }
+      ]
+    },
+    "type_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "visibility_modifier"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "type"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_type_identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "type_parameters",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "type_parameters"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_type"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ";"
         }
       ]
     },
@@ -7231,6 +7289,18 @@
                   {
                     "type": "STRING",
                     "value": "i128"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "u256"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "i256"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "b256"
                   },
                   {
                     "type": "STRING",

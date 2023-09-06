@@ -13,10 +13,16 @@ Integer literals
 0o70_i16;
 0b1111_1111_1001_0000_i32;
 1u128;
+0x0000000000000000000000000000000000000000000000000000000000000001u256;
+0x0000000000000000000000000000000000000000000000000000000000000001b256;
 
 --------------------------------------------------------------------------------
 
 (source_file
+  (expression_statement
+    (integer_literal))
+  (expression_statement
+    (integer_literal))
   (expression_statement
     (integer_literal))
   (expression_statement

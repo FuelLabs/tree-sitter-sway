@@ -29,6 +29,9 @@ const numeric_types = [
   'i64',
   'u128',
   'i128',
+  'u256',
+  'i256',
+  'b256',
   'isize',
   'usize',
   'f32',
@@ -117,9 +120,10 @@ module.exports = grammar({
       $.empty_statement,
       $.attribute_item,
       $.inner_attribute_item,
-      $.dep_item,
+      $.mod_item,
       $.struct_item,
       $.enum_item,
+      $.type_item,
       $.function_item,
       $.function_signature_item,
       $.impl_item,
@@ -165,8 +169,8 @@ module.exports = grammar({
       $.primitive_type,
       /[/_\-=->,;:::!=?.@*&#%^+<>|~]+/,
       '\'',
-      'abi', 'as', 'break', 'configurable', 'const', 'continue', 'default', 'dep', 'enum', 'fn', 'for', 'if', 'impl',
-      'let', 'match', 'pub', 'return', 'storage', 'struct', 'trait', 'use', 'where', 'while'
+      'abi', 'as', 'break', 'configurable', 'const', 'continue', 'default', 'mod', 'enum', 'fn', 'for', 'if', 'impl',
+      'let', 'match', 'mod', 'pub', 'return', 'storage', 'struct', 'trait', 'type', 'use', 'where', 'while'
     ),
 
     // Section - Declarations
@@ -194,14 +198,11 @@ module.exports = grammar({
       ))
     ),
 
-    dep_item: $ => seq(
+    mod_item: $ => seq(
       optional($.visibility_modifier),
-      'dep',
-      field('name', sepBy('/', $.identifier)),
-      choice(
-        ';',
-        field('body', $.declaration_list)
-      )
+      'mod',
+      field('name', $.identifier),
+      ';',
     ),
 
     declaration_list: $ => seq(
@@ -272,6 +273,7 @@ module.exports = grammar({
     ),
 
     storage_content: $ => seq(
+      optional(repeat($.attribute_item)),
       $.field_declaration,
       '=',
       field('value', $._expression)
@@ -320,6 +322,16 @@ module.exports = grammar({
       'asm',
       field('parameters', $.asm_parameters),
       field('body', $.asm_block),
+    ),
+
+    type_item: $ => seq(
+      optional($.visibility_modifier),
+      'type',
+      field('name', $._type_identifier),
+      field('type_parameters', optional($.type_parameters)),
+      '=',
+      field('type', $._type),
+      ';',
     ),
 
     function_item: $ => seq(

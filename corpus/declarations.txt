@@ -1,37 +1,18 @@
 ================================================================================
-Dependencies
+Modules
 ================================================================================
 
-dep english;
+mod english;
 
-dep english {}
-
-dep english {
-    dep greetings {}
-    dep farewells {}
-}
-
-dep bar/baz;
+pub mod english;
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (dep_item
+  (mod_item
     (identifier))
-  (dep_item
-    (identifier)
-    (declaration_list))
-  (dep_item
-    (identifier)
-    (declaration_list
-      (dep_item
-        (identifier)
-        (declaration_list))
-      (dep_item
-        (identifier)
-        (declaration_list))))
-  (dep_item
-    (identifier)
+  (mod_item
+    (visibility_modifier)
     (identifier)))
 
 ================================================================================
@@ -778,6 +759,28 @@ const OWNER_ADDRESS = Address::from(0x8900c5bec4ca97d4febf9ceb4754a60d782abbf3cd
         (integer_literal)))))
 
 ================================================================================
+Type aliases
+================================================================================
+
+type Inch = u64;
+type Name<T> = Vec<T>;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_item
+    (type_identifier)
+    (primitive_type))
+  (type_item
+    (type_identifier)
+    (type_parameters
+      (type_identifier))
+    (generic_type
+      (type_identifier)
+      (type_arguments
+        (type_identifier)))))
+
+================================================================================
 Empty statements
 ================================================================================
 
@@ -808,7 +811,7 @@ struct Baz;
 struct Foo;
 
 #[cfg(target_os = "macos")]
-dep macos_only {}
+mod macos_only;
 
 #![allow(clippy::useless_transmute)]
 
@@ -850,9 +853,8 @@ fn receive_funds() {
       arguments: (token_tree
         (identifier)
         (string_literal))))
-  (dep_item
-    name: (identifier)
-    body: (declaration_list))
+  (mod_item
+    name: (identifier))
   (inner_attribute_item
     (attribute
       (identifier)
@@ -878,27 +880,6 @@ fn receive_funds() {
     parameters: (parameters)
     body: (block
       (line_comment))))
-
-================================================================================
-Inner attributes
-================================================================================
-
-dep macos_only {
-  #![cfg(target_os = "macos")]
-}
-
---------------------------------------------------------------------------------
-
-(source_file
-  (dep_item
-    name: (identifier)
-    body: (declaration_list
-      (inner_attribute_item
-        (attribute
-          (identifier)
-          arguments: (token_tree
-            (identifier)
-            (string_literal)))))))
 
 ================================================================================
 Key-Value Attribute Expressions

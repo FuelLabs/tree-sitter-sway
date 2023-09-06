@@ -3359,9 +3359,13 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attribute_item",
+          "named": true
+        },
         {
           "type": "field_declaration",
           "named": true

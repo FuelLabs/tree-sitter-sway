@@ -96,6 +96,19 @@ configurable {
     C8: u64 = 0, // Unused - should not show up in the JSON file
 }
 
+configurable {
+  // Only compiles for FVM
+  #[cfg(target = "fuel")]
+  CFG_VALUE: u64 = 40,
+  // Only compiles for EVM
+  #[cfg(target = "evm")]
+  CFG_VALUE: () = (),
+  // Never compiles
+  #[cfg(target = "fuel")]
+  #[cfg(target = "evm")]
+  CFG_VALUE: () = (),
+}
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -173,7 +186,51 @@ configurable {
           (field_identifier)
           (primitive_type))
         (integer_literal))
-      (line_comment))))
+      (line_comment)))
+      (configurable_item
+        (storage_content_list
+          (line_comment)
+          (storage_content
+            (attribute_item
+              (attribute
+                (identifier)
+                (token_tree
+                  (identifier)
+                  (string_literal))))
+            (field_declaration
+              (field_identifier)
+              (primitive_type))
+            (integer_literal))
+          (line_comment)
+          (storage_content
+            (attribute_item
+              (attribute
+                (identifier)
+                (token_tree
+                  (identifier)
+                  (string_literal))))
+            (field_declaration
+              (field_identifier)
+              (unit_type))
+            (unit_expression))
+          (line_comment)
+          (storage_content
+            (attribute_item
+              (attribute
+                (identifier)
+                (token_tree
+                  (identifier)
+                  (string_literal))))
+            (attribute_item
+              (attribute
+                (identifier)
+                (token_tree
+                  (identifier)
+                  (string_literal))))
+            (field_declaration
+              (field_identifier)
+              (unit_type))
+            (unit_expression)))))
 
 ================================================================================
 ABI items

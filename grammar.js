@@ -270,6 +270,7 @@ module.exports = grammar({
     ),
 
     storage_content: $ => seq(
+      optional(repeat($.attribute_item)),
       $.field_declaration,
       '=',
       field('value', $._expression)

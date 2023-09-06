@@ -129,7 +129,7 @@ configurable {
       (storage_content
         (field_declaration
           (field_identifier)
-          (type_identifier))
+          (primitive_type))
         (integer_literal))
       (storage_content
         (field_declaration

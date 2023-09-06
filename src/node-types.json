@@ -4505,6 +4505,10 @@
     "named": false
   },
   {
+    "type": "b256",
+    "named": false
+  },
+  {
     "type": "block",
     "named": false
   },
@@ -4602,6 +4606,10 @@
   },
   {
     "type": "i16",
+    "named": false
+  },
+  {
+    "type": "i256",
     "named": false
   },
   {
@@ -4770,6 +4778,10 @@
   },
   {
     "type": "u16",
+    "named": false
+  },
+  {
+    "type": "u256",
     "named": false
   },
   {

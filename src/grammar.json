@@ -87,6 +87,18 @@
         },
         {
           "type": "STRING",
+          "value": "u256"
+        },
+        {
+          "type": "STRING",
+          "value": "i256"
+        },
+        {
+          "type": "STRING",
+          "value": "b256"
+        },
+        {
+          "type": "STRING",
           "value": "isize"
         },
         {
@@ -7277,6 +7289,18 @@
                   {
                     "type": "STRING",
                     "value": "i128"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "u256"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "i256"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "b256"
                   },
                   {
                     "type": "STRING",

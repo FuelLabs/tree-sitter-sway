@@ -1,0 +1,36 @@
+{
+  "grammars": [
+    {
+      "name": "sway",
+      "camelcase": "Sway",
+      "scope": "source.sway",
+      "path": ".",
+      "file-types": [
+        "sw"
+      ],
+      "injection-regex": "sway"
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "license": "Apache-2.0",
+    "description": "Sway grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "Fuel Labs",
+        "email": "contact@fuel.sh"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/FuelLabs/tree-sitter-sway"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true
+  }
+}

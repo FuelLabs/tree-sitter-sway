@@ -20,6 +20,8 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
+      - if: matrix.os == 'macos-latest'
+        run: sudo -H pip install setuptools
       - run: npm install
       - run: npm test
 

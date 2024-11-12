@@ -47,7 +47,7 @@ jobs:
         with:
           repository: fuellabs/sway
           path: sway
-          ref: 'v0.47.0'
+          ref: 'v0.46.0'
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:

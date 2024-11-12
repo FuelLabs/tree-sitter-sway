@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILES=$(find sway/test/src/e2e_vm_tests/test_programs/should_pass/ -type f -name "*.sw")
+FILES=$(find ../sway/test/src/e2e_vm_tests/test_programs/should_pass/ -type f -name "*.sw")
 declare -a failures=()
 declare -a successes=()
 for f in $FILES

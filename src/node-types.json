@@ -1926,11 +1926,6 @@
     }
   },
   {
-    "type": "fragment_specifier",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "function_item",
     "named": true,
     "fields": {
@@ -3300,6 +3295,7 @@
   {
     "type": "source_file",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -3546,32 +3542,6 @@
     }
   },
   {
-    "type": "token_binding_pattern",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "metavariable",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "fragment_specifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "token_tree",
     "named": true,
     "fields": {},
@@ -3585,10 +3555,6 @@
         },
         {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "metavariable",
           "named": true
         },
         {
@@ -4513,10 +4479,6 @@
     "named": false
   },
   {
-    "type": "block",
-    "named": false
-  },
-  {
     "type": "block_comment",
     "named": true
   },
@@ -4573,10 +4535,6 @@
     "named": true
   },
   {
-    "type": "expr",
-    "named": false
-  },
-  {
     "type": "f32",
     "named": false
   },
@@ -4629,10 +4587,6 @@
     "named": false
   },
   {
-    "type": "ident",
-    "named": false
-  },
-  {
     "type": "if",
     "named": false
   },
@@ -4653,10 +4607,6 @@
     "named": false
   },
   {
-    "type": "item",
-    "named": false
-  },
-  {
     "type": "let",
     "named": false
   },
@@ -4669,15 +4619,7 @@
     "named": true
   },
   {
-    "type": "literal",
-    "named": false
-  },
-  {
     "type": "match",
-    "named": false
-  },
-  {
-    "type": "meta",
     "named": false
   },
   {
@@ -4695,14 +4637,6 @@
   {
     "type": "mutable_specifier",
     "named": true
-  },
-  {
-    "type": "pat",
-    "named": false
-  },
-  {
-    "type": "path",
-    "named": false
   },
   {
     "type": "predicate",
@@ -4737,10 +4671,6 @@
     "named": true
   },
   {
-    "type": "stmt",
-    "named": false
-  },
-  {
     "type": "storage",
     "named": false
   },
@@ -4758,14 +4688,6 @@
   },
   {
     "type": "true",
-    "named": false
-  },
-  {
-    "type": "tt",
-    "named": false
-  },
-  {
-    "type": "ty",
     "named": false
   },
   {
@@ -4806,10 +4728,6 @@
   },
   {
     "type": "usize",
-    "named": false
-  },
-  {
-    "type": "vis",
     "named": false
   },
   {

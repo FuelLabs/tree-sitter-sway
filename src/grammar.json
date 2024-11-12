@@ -1,4 +1,5 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "sway",
   "word": "identifier",
   "rules": {
@@ -3600,6 +3601,10 @@
                 {
                   "type": "SYMBOL",
                   "name": "_type_identifier"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_reserved_identifier"
                 },
                 {
                   "type": "SYMBOL",
@@ -7412,7 +7417,7 @@
                           },
                           {
                             "type": "PATTERN",
-                            "value": "u{[0-9a-fA-F]+}"
+                            "value": "u\\{[0-9a-fA-F]+\\}"
                           },
                           {
                             "type": "PATTERN",
@@ -7462,7 +7467,7 @@
               },
               {
                 "type": "PATTERN",
-                "value": "u{[0-9a-fA-F]+}"
+                "value": "u\\{[0-9a-fA-F]+\\}"
               },
               {
                 "type": "PATTERN",
@@ -7692,4 +7697,3 @@
     "_pattern"
   ]
 }
-

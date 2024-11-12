@@ -27,14 +27,5 @@
     "eslint": "^9.14.0",
     "eslint-config-treesitter": "^1.0.2",
     "tree-sitter-cli": "^0.24.4"
-  },
-  "tree-sitter": [
-    {
-      "scope": "source.sway",
-      "injection-regex": "sway",
-      "file-types": [
-        "sw"
-      ]
-    }
-  ]
+  }
 }

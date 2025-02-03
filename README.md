@@ -14,7 +14,7 @@ Sway language is under active development with new features added all the time. 
 
 If you find a bug or missing feature, please open an issue or send a pull request including the following.
 
-- example Sway code demostrating the bug
+- example Sway code demonstrating the bug
 - the current output of `tree-sitter parse`
 - (Optional) the expected output of `tree-sitter parse`
 

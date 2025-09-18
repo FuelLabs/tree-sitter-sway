@@ -170,7 +170,7 @@ module.exports = grammar({
       /[/_\-=->,;:::!=?.@*&#%^+<>|~]+/,
       '\'',
       'abi', 'as', 'break', 'configurable', 'const', 'continue', 'default', 'mod', 'enum', 'fn', 'for', 'if', 'impl',
-      'let', 'match', 'mod', 'pub', 'return', 'storage', 'struct', 'trait', 'type', 'use', 'where', 'while',
+      'let', 'match', 'pub', 'return', 'storage', 'struct', 'trait', 'type', 'use', 'where', 'while',
     ),
 
     // Section - Declarations
